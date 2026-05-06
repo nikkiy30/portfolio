@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- <link rel="icon" href="favicon.ico"> -->
+  <link rel="icon" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Home</title>
+  <meta
+    name="description"
+    content="自己紹介、ポートフォリオ、学習ログを分けて見せる Studyfolio のホームページです。"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <div class="page-shell">
+    <header class="site-header compact-header">
+      <nav class="topbar">
+        <a class="brand" href="index.html">Portfolio</a>
+        <div class="topbar-links">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
+          <a href="learning.html" data-nav="learning">Learning</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero hero-home">
+        <div class="hero-grid hero-grid-wide">
+          <div class="hero-copy">
+            <p class="eyebrow">Skill Portfolio</p>
+            <h1>
+              分析を、
+              <span>価値ある体験へ変える。</span>
+            </h1>
+            <p class="lead">
+              About では視点を、Portfolio と Learning では経験を説明します。
+            </p>
+            
+            <div class="home-statement">
+
+              <div class="statement-node">
+                <span class="node-label">INPUT</span>
+                <strong>数理的な理解</strong>
+              </div>
+
+              <div class="statement-flow">
+                <span class="flow-dot"></span>
+              </div>
+
+              <div class="statement-node">
+                <span class="node-label">INTERPRET</span>
+                <strong>課題の解釈</strong>
+              </div>
+
+              <div class="statement-flow statement-flow-focus">
+                <span class="flow-dot"></span>
+              </div>
+
+              <div class="statement-node statement-goal">
+                <span class="node-label">OUTPUT</span>
+                <strong>価値あるアウトプット</strong>
+              </div>
+
+            </div>
+            
+            <dl class="home-metrics">
+              <div>
+                <h5>Focus（興味のあるコンテンツ）</h5>
+                <div class="about-focus">
+                  <span>Data Science</span>
+                  <span>Machine Learning</span>
+                  <span>AI</span>
+                  <span>Algorithm</span>
+                </div>
+              </div>
+              <div>
+                <h5>Current（現在取り組んでいること）</h5>
+                <dd>📚Learning / 👨‍💻R＆D / 👨‍🏫Teaching</dd>
+              </div>
+            </dl>
+          </div>
+
+          <aside class="hero-card home-selector-card">
+            <p class="card-label">Explore</p>
+            <h2>各ページを探索</h2>
+            <div class="selector-tabs">
+              <button class="selector-tab is-active" data-target="tab-about">
+                <span class="tab-number">01</span>
+                <strong>About</strong>
+                <p>自分がどんな人か</p>
+              </button>
+              <button class="selector-tab" data-target="tab-portfolio">
+                <span class="tab-number">02</span>
+                <strong>Portfolio</strong>
+                <p>制作の意図と実績</p>
+              </button>
+              <button class="selector-tab" data-target="tab-learning">
+                <span class="tab-number">03</span>
+                <strong>Learning</strong>
+                <p>成長過程の記録</p>
+              </button>
+            </div>
+            <div class="selector-content">
+              <div class="content-panel is-active" id="tab-about">
+                <p>何に関心があり、どんな姿勢で学んでいるのかを言葉で伝え、制作物を見る前の理解を作ります。</p>
+                <a href="about.html" class="selector-link">詳しく見る →</a>
+              </div>
+              <div class="content-panel" id="tab-portfolio">
+                <p>単なる一覧ではなく、テーマ、役割、改善意識まで含めてポートフォリオとして成立させます。</p>
+                <a href="portfolio.html" class="selector-link">詳しく見る →</a>
+              </div>
+              <div class="content-panel" id="tab-learning">
+                <p>現在のテーマや今やっているタスクを追加できるようにし、成長の途中も見える形にします。</p>
+                <a href="learning.html" class="selector-link">詳しく見る →</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
