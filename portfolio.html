@@ -6,7 +6,7 @@
   <title>Portfolio | Portfolio</title>
   <meta
     name="description"
-    content="Studyfolio のポートフォリオページ。制作テーマやアウトプットの方向性を整理しています。"
+    content="Studyfolio のポートフォリオページ。成果物を目的、工夫、改善点とあわせて整理しています。"
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,60 +31,101 @@
     </header>
 
     <main>
-      <section class="page-hero">
-        <p class="eyebrow">Portfolio</p>
-        <h1>何を作り、どんな意図で取り組んでいるか。</h1>
-        <p class="lead page-lead">
-          このページでは、ポートフォリオとして見せたい制作テーマや、今後追加していく作品の見せ方を整理しています。
-        </p>
+      <section class="portfolio-toolbar" aria-label="Portfolio overview">
+        <div>
+          <p class="eyebrow">Portfolio</p>
+          <h1>成果物一覧</h1>
+        </div>
+        <label class="portfolio-searchbar">
+          <span>Search</span>
+          <input id="portfolio-search" type="search" placeholder="成果物を検索">
+        </label>
       </section>
 
       <section class="section">
-        <div class="cards-grid three-grid">
-          <article class="panel feature-card accent-card">
-            <p class="card-label">Project 01</p>
-            <h3>Studyfolio</h3>
-            <p>
-              自己紹介、作品、学習ログを分けて設計し、成長途中も見せられるようにしたポートフォリオサイトです。
-            </p>
+        <div class="portfolio-grid">
+          <article class="panel work-card accent-card" data-work-card data-search-text="studyfolio portfolio html css vanilla javascript 自己紹介 制作物 学習ログ">
+            <div class="work-preview work-preview-site" aria-label="Studyfolioの画面イメージ">
+              <span class="work-window-bar"></span>
+              <span class="work-preview-title">Studyfolio</span>
+              <span class="work-preview-line"></span>
+              <span class="work-preview-line short"></span>
+            </div>
+            <div class="work-card-body">
+              <p class="card-label">Project 01</p>
+              <h3>Studyfolio</h3>
+              <dl class="work-details">
+                <div>
+                  <dt>Purpose</dt>
+                  <dd>自己紹介、制作物、学習ログを分けて、成長途中の思考と実装を見せる。</dd>
+                </div>
+                <div>
+                  <dt>Built</dt>
+                  <dd>HTML / CSS / Vanilla JavaScript</dd>
+                </div>
+                <div>
+                  <dt>Next</dt>
+                  <dd>作品ごとのスクリーンショットと改善メモを追加する。</dd>
+                </div>
+              </dl>
+            </div>
           </article>
-          <article class="panel feature-card">
-            <p class="card-label">Project 02</p>
-            <h3>UI Practice Collection</h3>
-            <p>
-              気になったレイアウトやカードデザインを再現しながら、余白やタイポグラフィの感覚を磨くための練習集です。
-            </p>
-          </article>
-          <article class="panel feature-card">
-            <p class="card-label">Project 03</p>
-            <h3>Learning Notes Archive</h3>
-            <p>
-              学んだ内容を短いメモや改善点として残し、次の制作にどうつなげるかを整理するための記録です。
-            </p>
-          </article>
-        </div>
-      </section>
 
-      <section class="section">
-        <div class="about-grid">
-          <article class="panel">
-            <p class="card-label">How I Show Work</p>
-            <h3>作品ページで明示したいこと</h3>
-            <ul class="bullet-list">
-              <li>何を作ったか</li>
-              <li>なぜその構成や表現にしたか</li>
-              <li>どこに工夫があるか</li>
-              <li>次にどこを改善したいか</li>
-            </ul>
+          <article class="panel work-card" data-work-card data-search-text="ui practice collection layout component 余白 配色 タイポグラフィ">
+            <div class="work-preview work-preview-ui" aria-label="UI Practice Collectionの画面イメージ">
+              <span class="work-window-bar"></span>
+              <span class="work-preview-card"></span>
+              <span class="work-preview-card"></span>
+              <span class="work-preview-card wide"></span>
+            </div>
+            <div class="work-card-body">
+              <p class="card-label">Project 02</p>
+              <h3>UI Practice Collection</h3>
+              <dl class="work-details">
+                <div>
+                  <dt>Purpose</dt>
+                  <dd>余白、配色、タイポグラフィの判断を言語化するためのUI練習集。</dd>
+                </div>
+                <div>
+                  <dt>Built</dt>
+                  <dd>Layout study / Component practice</dd>
+                </div>
+                <div>
+                  <dt>Next</dt>
+                  <dd>再現したUIの意図と改善点をカードごとに残す。</dd>
+                </div>
+              </dl>
+            </div>
           </article>
-          <article class="panel">
-            <p class="card-label">Next Update</p>
-            <h3>次に追加するとよさそうな要素</h3>
-            <p>
-              今後は作品ごとの詳細ページ、使用技術、制作期間、振り返りを加えると、よりポートフォリオらしさが強くなります。
-            </p>
+
+          <article class="panel work-card" data-work-card data-search-text="learning notes archive documentation reflection log 学習 メモ 改善">
+            <div class="work-preview work-preview-notes" aria-label="Learning Notes Archiveの画面イメージ">
+              <span class="work-window-bar"></span>
+              <span class="work-preview-row"></span>
+              <span class="work-preview-row"></span>
+              <span class="work-preview-row short"></span>
+            </div>
+            <div class="work-card-body">
+              <p class="card-label">Project 03</p>
+              <h3>Learning Notes Archive</h3>
+              <dl class="work-details">
+                <div>
+                  <dt>Purpose</dt>
+                  <dd>学んだこと、迷ったこと、次に直すことを残し、制作物の改善につなげる。</dd>
+                </div>
+                <div>
+                  <dt>Built</dt>
+                  <dd>Documentation / Reflection log</dd>
+                </div>
+                <div>
+                  <dt>Next</dt>
+                  <dd>制作物と学習メモを相互に参照できる形にする。</dd>
+                </div>
+              </dl>
+            </div>
           </article>
         </div>
+        <p class="portfolio-empty" id="portfolio-empty" hidden>該当する成果物がありません。</p>
       </section>
     </main>
   </div>

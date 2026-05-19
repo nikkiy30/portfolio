@@ -23,3 +23,9 @@ npm-debug.log*
 # Env
 .env
 .env.local
+
+# Local AI / project notes
+AGENTS.md
+.agents/
+.codex/
+docs/

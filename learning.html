@@ -6,7 +6,7 @@
   <title>Portfolio | Learning</title>
   <meta
     name="description"
-    content="Studyfolio の学習ページ。現在地、学習テーマ、今やっているタスクを追加して管理できます。"
+    content="Studyfolio のLearningページ。現在の学習テーマと進行中タスクを管理します。"
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,88 +31,65 @@
     </header>
 
     <main>
-      <section class="page-hero learning-hero">
-        <p class="eyebrow">Learning</p>
-        <h1>学習の現状と、今やっているタスクを残す。</h1>
-        <p class="lead page-lead">
-          このページでは、学習の現在地、取り組み中のテーマ、そして今やっているタスクを自分で追加できます。
-          追加したタスクはブラウザに保存されるので、日々の更新にも使えます。
-        </p>
-      </section>
-
-      <section class="section">
-        <div class="cards-grid three-grid">
-          <article class="panel metric-panel">
-            <p class="card-label">Current Focus</p>
-            <h3>フロントエンドの基礎を整理する</h3>
-            <p>HTML、CSS、JavaScriptを使いながら、情報設計とUIの見せ方を整えています。</p>
-          </article>
-          <article class="panel metric-panel">
-            <p class="card-label">This Week</p>
-            <h3>ページ分割と更新しやすさ</h3>
-            <p>役割ごとにページを分けて、学習中のタスクを後から追加しやすくすることがテーマです。</p>
-          </article>
-          <article class="panel metric-panel accent-card">
-            <p class="card-label">Next Goal</p>
-            <h3>作品詳細と学習記録をつなぐ</h3>
-            <p>作品の意図と学習ログが自然に結びつくように、情報の整理を進めていきます。</p>
-          </article>
+      <section class="learning-toolbar" aria-label="Learning overview">
+        <div>
+          <p class="eyebrow">Learning</p>
+          <h1>学習ログボード</h1>
         </div>
-      </section>
-
-      <section class="section learning-section">
-        <div class="learning-layout">
-          <div class="tab-list" role="tablist" aria-label="学習テーマ">
-            <button class="tab is-active" type="button" data-topic="frontend" aria-selected="true">Frontend</button>
-            <button class="tab" type="button" data-topic="design" aria-selected="false">Design</button>
-            <button class="tab" type="button" data-topic="output" aria-selected="false">Output</button>
-          </div>
-
-          <article class="panel learning-panel">
-            <p class="panel-kicker" id="topic-label">Frontend Track</p>
-            <h3 id="topic-title">使いやすく、読みやすいUIを作る</h3>
-            <p id="topic-description">
-              HTML、CSS、JavaScriptの基礎を固めながら、レスポンシブ対応と情報設計の理解を深めています。
-            </p>
-
-            <div class="topic-columns">
-              <div>
-                <h4>今やっていること</h4>
-                <ul id="topic-points"></ul>
-              </div>
-              <div>
-                <h4>次の目標</h4>
-                <p id="topic-goal"></p>
-              </div>
-            </div>
-          </article>
+        <div class="learning-status-strip" aria-label="現在の学習状態">
+          <button class="button button-primary button-small" type="button" id="task-open-button">タスクを追加</button>
         </div>
       </section>
 
       <section class="section">
         <div class="task-board-grid">
-          <article class="panel task-form-panel">
-            <p class="card-label">Task Input</p>
-            <h3>今やっているタスクを追加する</h3>
-            <form id="task-form" class="task-form">
-              <label>
-                タスク名
-                <input type="text" id="task-title-input" name="title" placeholder="例: ポートフォリオの作品詳細ページを考える" required>
-              </label>
-              <label>
-                ステータス
-                <select id="task-status-input" name="status">
-                  <option value="進行中">進行中</option>
-                  <option value="これから">これから</option>
-                  <option value="完了">完了</option>
-                </select>
-              </label>
-              <label>
-                メモ
-                <textarea id="task-note-input" name="note" rows="4" placeholder="何を進めているか、次に何をするかを書けます"></textarea>
-              </label>
-              <button class="button button-primary" type="submit">タスクを追加</button>
-            </form>
+          <article class="panel task-insight-panel">
+            <p class="card-label">Task Status</p>
+            <h3>今の進み具合</h3>
+            <div class="task-counts" aria-label="タスク数">
+              <div>
+                <span id="task-count-total">0</span>
+                <small>Total</small>
+              </div>
+              <div>
+                <span id="task-count-active">0</span>
+                <small>Active</small>
+              </div>
+              <div>
+                <span id="task-count-done">0</span>
+                <small>Done</small>
+              </div>
+            </div>
+            <div class="task-progress-list" aria-label="ステータス別の進捗">
+              <div class="task-progress-row">
+                <div>
+                  <strong>これから</strong>
+                  <span id="task-count-todo">0</span>
+                </div>
+                <span class="task-progress-track">
+                  <span class="task-progress-fill task-progress-todo" id="task-progress-todo"></span>
+                </span>
+              </div>
+              <div class="task-progress-row">
+                <div>
+                  <strong>進行中</strong>
+                  <span id="task-count-active-row">0</span>
+                </div>
+                <span class="task-progress-track">
+                  <span class="task-progress-fill task-progress-active" id="task-progress-active"></span>
+                </span>
+              </div>
+              <div class="task-progress-row">
+                <div>
+                  <strong>完了</strong>
+                  <span id="task-count-done-row">0</span>
+                </div>
+                <span class="task-progress-track">
+                  <span class="task-progress-fill task-progress-done" id="task-progress-done"></span>
+                </span>
+              </div>
+            </div>
+            <p class="task-insight-note" id="task-limit-note">最新4件を表示します。</p>
           </article>
 
           <article class="panel task-list-panel">
@@ -121,12 +98,43 @@
                 <p class="card-label">Current Tasks</p>
                 <h3>学習中のタスク</h3>
               </div>
-              <button class="button button-secondary button-small" type="button" id="task-reset-button">初期状態に戻す</button>
+              <button class="button button-secondary button-small" type="button" id="task-reset-button">すべて削除</button>
             </div>
             <div id="task-list" class="task-list"></div>
           </article>
         </div>
       </section>
+
+      <dialog class="task-dialog" id="task-dialog" aria-labelledby="task-dialog-title">
+        <div class="task-dialog-card">
+          <div class="task-dialog-header">
+            <div>
+              <p class="card-label">Task Input</p>
+              <h3 id="task-dialog-title">今やっているタスクを追加する</h3>
+            </div>
+            <button class="dialog-close-button" type="button" id="task-close-button" aria-label="閉じる">×</button>
+          </div>
+          <form id="task-form" class="task-form">
+            <label>
+              タスク名
+              <input type="text" id="task-title-input" name="title" placeholder="例: ポートフォリオの作品詳細ページを考える" required>
+            </label>
+            <label>
+              ステータス
+              <select id="task-status-input" name="status">
+                <option value="進行中">進行中</option>
+                <option value="これから">これから</option>
+                <option value="完了">完了</option>
+              </select>
+            </label>
+            <label>
+              メモ
+              <textarea id="task-note-input" name="note" rows="4" placeholder="何を進めているか、次に何をするかを書けます"></textarea>
+            </label>
+            <button class="button button-primary" type="submit">タスクを追加</button>
+          </form>
+        </div>
+      </dialog>
     </main>
   </div>
 
