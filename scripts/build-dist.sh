@@ -6,7 +6,8 @@ find dist -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 
 mkdir -p dist/data dist/images
 
-cp index.html about.html portfolio.html learning.html styles.css script.js favicon.png dist/
+find . -maxdepth 1 -type f -name "*.html" ! -name "*-admin.html" -exec cp {} dist/ \;
+cp styles.css script.js favicon.png dist/
 cp data/*.js dist/data/
 
 if find images -maxdepth 1 -type f | grep -q .; then

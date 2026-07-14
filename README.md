@@ -51,7 +51,8 @@
 - `learning-admin.html` はローカル編集用です。Netlifyでは `netlify.toml` により公開対象の `dist/` へコピーしません。
 - Learningの公開データは `data/learning-tasks.js` で管理します。
 - `portfolio-admin.html` もローカル編集用です。Portfolioの公開データは `data/portfolio-projects.js` で管理します。
-- admin画面で編集した内容は、エクスポート欄の内容を `data/*.js` に反映してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
+- admin画面で編集した内容は同じブラウザの公開プレビューにも反映されます。再配布やデプロイ時は、`dataファイルを保存` で `data/*.js` を更新してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
+- `scripts/build-dist.sh` は公開用HTMLを自動コピーしますが、`*-admin.html` は公開しないため除外します。
 - Portfolioの写真は `images/` に置き、`data/portfolio-projects.js` の `image.src` から参照します。ビルド時に `dist/images/` へコピーされます。
 
 ## Contact

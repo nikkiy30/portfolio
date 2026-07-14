@@ -21,11 +21,15 @@ const previewTaskList = document.getElementById("preview-task-list");
 const taskForm = document.getElementById("task-form");
 const taskResetButton = document.getElementById("task-reset-button");
 const taskExportOutput = document.getElementById("task-export-output");
+const taskSaveFileButton = document.getElementById("task-save-file-button");
+const taskSaveStatus = document.getElementById("task-save-status");
 const portfolioGrid = document.getElementById("portfolio-grid");
 const portfolioForm = document.getElementById("portfolio-form");
 const portfolioResetButton = document.getElementById("portfolio-reset-button");
 const portfolioAdminList = document.getElementById("portfolio-admin-list");
 const portfolioExportOutput = document.getElementById("portfolio-export-output");
+const portfolioSaveFileButton = document.getElementById("portfolio-save-file-button");
+const portfolioSaveStatus = document.getElementById("portfolio-save-status");
 const portfolioSubmitButton = document.getElementById("portfolio-submit-button");
 const portfolioCancelEditButton = document.getElementById("portfolio-cancel-edit-button");
 const taskCountTotal = document.getElementById("task-count-total");
@@ -45,17 +49,29 @@ const previewTypeLabels = {
   notes: "学習ノート・資料"
 };
 
+function readStoredArray(key) {
+  try {
+    const saved = localStorage.getItem(key);
+
+    if (!saved) {
+      return null;
+    }
+
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch (error) {
+    return null;
+  }
+}
+
 function loadTasks() {
-  if (!isLearningAdmin) {
-    return staticLearningTasks;
+  const storedTasks = readStoredArray(storageKey);
+
+  if (storedTasks) {
+    return storedTasks;
   }
 
-  try {
-    const saved = localStorage.getItem(storageKey);
-    return saved ? JSON.parse(saved) : staticLearningTasks;
-  } catch (error) {
-    return defaultTasks;
-  }
+  return isLearningAdmin ? defaultTasks : staticLearningTasks;
 }
 
 function saveTasks(tasks) {
@@ -67,16 +83,13 @@ function createLearningDataSource(tasks) {
 }
 
 function loadPortfolioProjects() {
-  if (!isPortfolioAdmin) {
-    return staticPortfolioProjects;
+  const storedProjects = readStoredArray(portfolioStorageKey);
+
+  if (storedProjects) {
+    return storedProjects;
   }
 
-  try {
-    const saved = localStorage.getItem(portfolioStorageKey);
-    return saved ? JSON.parse(saved) : staticPortfolioProjects;
-  } catch (error) {
-    return staticPortfolioProjects;
-  }
+  return staticPortfolioProjects;
 }
 
 function savePortfolioProjects(projects) {
@@ -85,6 +98,58 @@ function savePortfolioProjects(projects) {
 
 function createPortfolioDataSource(projects) {
   return `window.portfolioProjects = ${JSON.stringify(projects, null, 2)};\n`;
+}
+
+function downloadTextFile(fileName, content) {
+  const blob = new Blob([content], { type: "text/javascript;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function saveTextFile(fileName, content) {
+  if ("showSaveFilePicker" in window) {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: fileName,
+      types: [
+        {
+          description: "JavaScript data file",
+          accept: { "text/javascript": [".js"] }
+        }
+      ]
+    });
+    const writable = await handle.createWritable();
+    await writable.write(content);
+    await writable.close();
+    return "saved";
+  }
+
+  downloadTextFile(fileName, content);
+  return "downloaded";
+}
+
+async function saveExportOutput(fileName, output, status) {
+  if (!output) {
+    return;
+  }
+
+  try {
+    const result = await saveTextFile(fileName, output.value);
+    if (status) {
+      status.textContent = result === "saved"
+        ? `${fileName} を保存しました。公開反映用に data/${fileName} を更新してください。`
+        : `${fileName} をダウンロードしました。公開反映用に data/${fileName} へ置いてください。`;
+    }
+  } catch (error) {
+    if (status) {
+      status.textContent = "保存をキャンセルしました。";
+    }
+  }
 }
 
 function parseAwardLabels(value) {
@@ -367,6 +432,12 @@ if (taskList || previewTaskList) {
   renderTasks();
 }
 
+if (taskSaveFileButton) {
+  taskSaveFileButton.addEventListener("click", () => {
+    saveExportOutput("learning-tasks.js", taskExportOutput, taskSaveStatus);
+  });
+}
+
 const portfolioSearch = document.getElementById("portfolio-search");
 const portfolioEmpty = document.getElementById("portfolio-empty");
 
@@ -624,6 +695,12 @@ if (portfolioSearch) {
 
 if (portfolioGrid) {
   renderPortfolioProjects();
+}
+
+if (portfolioSaveFileButton) {
+  portfolioSaveFileButton.addEventListener("click", () => {
+    saveExportOutput("portfolio-projects.js", portfolioExportOutput, portfolioSaveStatus);
+  });
 }
 
 if (portfolioForm) {

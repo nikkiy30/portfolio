@@ -139,7 +139,9 @@
             <article class="panel admin-export-panel">
               <p class="card-label">Export</p>
               <h3>公開用データ</h3>
-              <p>内容を確認し、必要なときに <code>data/learning-tasks.js</code> へ反映します。</p>
+              <p>同じブラウザのプレビューは保存中データを優先表示します。再配布するときは <code>data/learning-tasks.js</code> を更新してください。</p>
+              <button class="button button-secondary" type="button" id="task-save-file-button">dataファイルを保存</button>
+              <p class="admin-save-status" id="task-save-status" aria-live="polite"></p>
               <textarea id="task-export-output" class="task-export-output" rows="10" readonly></textarea>
             </article>
           </section>

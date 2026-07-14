@@ -1682,6 +1682,12 @@ body[data-page="about"] .geo-caption {
   margin: 0;
 }
 
+.admin-save-status {
+  min-height: 1.4em;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .task-export-output {
   width: 100%;
   min-height: 220px;
