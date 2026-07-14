@@ -88,6 +88,7 @@ select {
 .page-hero h1,
 .section-heading h2,
 .panel h3,
+.panel h2,
 .hero-card h2,
 .about-hero-main h1 {
   font-family: "Manrope", "Noto Sans JP", sans-serif;
@@ -442,6 +443,10 @@ body[data-page="learning"] .section {
   gap: 22px;
 }
 
+.portfolio-grid-admin {
+  grid-template-columns: 1fr;
+}
+
 .work-card {
   display: grid;
   gap: 16px;
@@ -451,12 +456,25 @@ body[data-page="learning"] .section {
 .work-preview {
   position: relative;
   min-height: 148px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid rgba(44, 95, 139, 0.14);
   border-radius: 22px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(220, 232, 243, 0.5)),
     rgba(255, 255, 255, 0.6);
+}
+
+.work-photo {
+  margin: 0;
+  background: rgba(44, 95, 139, 0.08);
+}
+
+.work-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .work-window-bar {
@@ -483,7 +501,9 @@ body[data-page="learning"] .section {
 .work-preview-title,
 .work-preview-line,
 .work-preview-card,
-.work-preview-row {
+.work-preview-row,
+.work-preview-phone,
+.work-preview-mobile-row {
   position: absolute;
   display: block;
   border-radius: 999px;
@@ -535,6 +555,44 @@ body[data-page="learning"] .section {
   height: 30px;
 }
 
+.work-preview-phone {
+  left: 50%;
+  top: 44px;
+  width: 86px;
+  height: 126px;
+  transform: translateX(-50%);
+  border: 4px solid rgba(27, 27, 24, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.work-preview-mobile-row {
+  left: 13px;
+  right: 13px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.work-preview-mobile-row.header {
+  top: 16px;
+  height: 20px;
+  border-radius: 10px;
+  background: rgba(27, 27, 24, 0.7);
+}
+
+.work-preview-mobile-row:nth-child(2) {
+  top: 52px;
+}
+
+.work-preview-mobile-row:nth-child(3) {
+  top: 73px;
+}
+
+.work-preview-mobile-row.short {
+  top: 95px;
+  right: 32px;
+}
+
 .work-preview-row {
   left: 22px;
   right: 22px;
@@ -578,6 +636,47 @@ body[data-page="learning"] .section {
 
 .work-card-body h3 {
   margin-bottom: 0;
+}
+
+.work-badges,
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.work-badges span {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(192, 143, 53, 0.14);
+  color: #7a5518;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.work-links {
+  margin-top: 4px;
+}
+
+.work-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid rgba(44, 95, 139, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.work-links a:hover,
+.work-links a:focus-visible {
+  border-color: rgba(44, 95, 139, 0.34);
+  background: rgba(220, 232, 243, 0.48);
 }
 
 .work-details {
@@ -1529,6 +1628,74 @@ body[data-page="about"] .geo-caption {
   align-items: start;
 }
 
+.learning-split-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.86fr) minmax(0, 1.14fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.learning-public-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.admin-panel,
+.user-preview-column {
+  display: grid;
+  gap: 18px;
+}
+
+.panel-heading-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel-heading-row h2,
+.task-insight-panel h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+}
+
+.admin-task-area {
+  display: grid;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(47, 107, 82, 0.12);
+}
+
+.preview-task-list .task-item {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(244, 249, 246, 0.72));
+}
+
+.admin-export-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-export-panel p {
+  margin: 0;
+}
+
+.task-export-output {
+  width: 100%;
+  min-height: 220px;
+  padding: 14px 16px;
+  border: 1px solid rgba(27, 27, 24, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
 .task-insight-panel {
   display: grid;
   gap: 18px;
@@ -1644,66 +1811,11 @@ body[data-page="about"] .geo-caption {
   resize: vertical;
 }
 
-.task-dialog {
-  width: min(560px, calc(100% - 32px));
-  padding: 0;
-  border: 0;
-  border-radius: 24px;
-  background: transparent;
-}
-
-.task-dialog::backdrop {
-  background: rgba(27, 27, 24, 0.34);
-  backdrop-filter: blur(8px);
-}
-
-.task-dialog[open] {
-  animation: dialogPop 180ms ease-out;
-}
-
-.task-dialog-card {
-  padding: 26px;
-  border: 1px solid rgba(47, 107, 82, 0.14);
-  border-radius: 24px;
-  background:
-    linear-gradient(145deg, rgba(255, 248, 239, 0.98), rgba(244, 249, 246, 0.94)),
-    var(--surface-strong);
-  box-shadow: 0 28px 70px rgba(27, 27, 24, 0.22);
-}
-
-.task-dialog-header {
+.form-actions,
+.task-item-actions {
   display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.task-dialog-header h3 {
-  margin: 0;
-}
-
-.dialog-close-button {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(44, 95, 139, 0.14);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--text);
-  cursor: pointer;
-}
-
-@keyframes dialogPop {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .task-list-header {
@@ -1757,6 +1869,7 @@ body[data-page="about"] .geo-caption {
   margin: 0;
 }
 
+.task-edit-button,
 .task-delete-button {
   justify-self: start;
   margin-top: 6px;
@@ -1770,6 +1883,8 @@ body[data-page="about"] .geo-caption {
   font-weight: 800;
 }
 
+.task-edit-button:hover,
+.task-edit-button:focus-visible,
 .task-delete-button:hover,
 .task-delete-button:focus-visible {
   color: var(--accent-deep);
@@ -1928,6 +2043,8 @@ body[data-page="home"] .selector-tab strong {
   .portfolio-grid,
   .two-grid,
   .task-board-grid,
+  .learning-split-grid,
+  .learning-public-grid,
   .about-hero-grid,
   .about-intro-blocks {
     grid-template-columns: 1fr;
@@ -1980,7 +2097,8 @@ body[data-page="home"] .selector-tab strong {
   }
 
   .topbar,
-  .task-list-header {
+  .task-list-header,
+  .panel-heading-row {
     align-items: flex-start;
     flex-direction: column;
   }

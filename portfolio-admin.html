@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Portfolio Admin</title>
+  <meta
+    name="description"
+    content="Studyfolio のPortfolioデータをローカルで作成するための管理者用ページです。"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="portfolio">
+  <div class="page-shell">
+    <header class="site-header compact-header">
+      <nav class="topbar">
+        <a class="brand" href="index.html">Portfolio</a>
+        <div class="topbar-links">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
+          <a href="learning.html" data-nav="learning">Learning</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="portfolio-toolbar" aria-label="Portfolio admin overview">
+        <div>
+          <p class="eyebrow">Local Admin</p>
+          <h1>成果物データ作成</h1>
+        </div>
+        <div class="learning-status-strip" aria-label="管理者画面の扱い">
+          <span>Local Only</span>
+          <span>Not Deployed</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="learning-split-grid">
+          <section class="panel admin-panel" aria-labelledby="portfolio-admin-title">
+            <div class="panel-heading-row">
+              <div>
+                <p class="card-label">Admin Screen</p>
+                <h2 id="portfolio-admin-title">成果物入力</h2>
+              </div>
+              <button class="button button-secondary button-small" type="button" id="portfolio-reset-button">すべて削除</button>
+            </div>
+
+            <form id="portfolio-form" class="task-form">
+              <label>
+                作品名
+                <input type="text" name="title" placeholder="例: 需要予測ダッシュボード" required>
+              </label>
+              <label>
+                目的
+                <textarea name="purpose" rows="3" placeholder="何のために作ったかを書きます" required></textarea>
+              </label>
+              <label>
+                使用技術・制作形式
+                <input type="text" name="built" placeholder="例: Python / pandas / Streamlit" required>
+              </label>
+              <label>
+                次の改善点
+                <textarea name="next" rows="3" placeholder="次に直すこと、追加することを書きます"></textarea>
+              </label>
+              <label>
+                検索キーワード
+                <input type="text" name="searchText" placeholder="例: python data analysis dashboard 需要予測">
+              </label>
+              <label>
+                受賞・認定ラベル
+                <textarea name="awards" rows="2" placeholder="例: 最優秀賞, ハッカソン入賞"></textarea>
+              </label>
+              <label>
+                関連リンク
+                <textarea name="links" rows="3" placeholder="例: GitHub | https://github.com/username/project&#10;Demo | https://example.com"></textarea>
+              </label>
+              <label>
+                写真・画像パス
+                <input type="text" name="imageSrc" placeholder="例: images/portfolio-dashboard.jpg">
+              </label>
+              <label>
+                写真の説明
+                <input type="text" name="imageAlt" placeholder="例: 需要予測ダッシュボードの画面">
+              </label>
+              <label>
+                プレビュー形式
+                <select name="previewType">
+                  <option value="site">Webサイト画面</option>
+                  <option value="mobile">モバイルアプリ画面</option>
+                  <option value="ui">UI部品・画面練習</option>
+                  <option value="notes">学習ノート・資料</option>
+                </select>
+              </label>
+              <div class="form-actions">
+                <button class="button button-primary" type="submit" id="portfolio-submit-button">成果物を追加</button>
+                <button class="button button-secondary" type="button" id="portfolio-cancel-edit-button" hidden>編集をキャンセル</button>
+              </div>
+            </form>
+
+            <div class="admin-task-area">
+              <p class="card-label">Admin List</p>
+              <div id="portfolio-admin-list" class="task-list"></div>
+            </div>
+          </section>
+
+          <section class="user-preview-column" aria-labelledby="portfolio-preview-title">
+            <article class="panel task-list-panel">
+              <p class="card-label">Preview</p>
+              <h3 id="portfolio-preview-title">公開時の見え方</h3>
+              <div class="portfolio-grid portfolio-grid-admin" id="portfolio-grid"></div>
+              <p class="portfolio-empty" id="portfolio-empty" hidden>成果物がありません。</p>
+            </article>
+
+            <article class="panel admin-export-panel">
+              <p class="card-label">Export</p>
+              <h3>公開用データ</h3>
+              <p>内容を確認し、必要なときに <code>data/portfolio-projects.js</code> へ反映します。</p>
+              <textarea id="portfolio-export-output" class="task-export-output" rows="12" readonly></textarea>
+            </article>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data/portfolio-projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

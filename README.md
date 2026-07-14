@@ -35,7 +35,7 @@
 
 - Perspective セクション：幾何学的な情報フロー表現
 - Portfolio Page：制作物を検索しながら確認できる一覧
-- Learning Page：タスクを追加・削除できる学習ログボード（LocalStorage利用）
+- Learning Page：静的データを読み込む公開用の学習ログボード
 - Smooth Animations：Cubic-bezier easing
 
 ## Getting Started
@@ -48,6 +48,11 @@
 - 現在は静的サイトです。
 - 外部APIやバックエンドは使っていません。
 - `.env` や秘密情報を使う前提の機能はありません。
+- `learning-admin.html` はローカル編集用です。Netlifyでは `netlify.toml` により公開対象の `dist/` へコピーしません。
+- Learningの公開データは `data/learning-tasks.js` で管理します。
+- `portfolio-admin.html` もローカル編集用です。Portfolioの公開データは `data/portfolio-projects.js` で管理します。
+- admin画面で編集した内容は、エクスポート欄の内容を `data/*.js` に反映してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
+- Portfolioの写真は `images/` に置き、`data/portfolio-projects.js` の `image.src` から参照します。ビルド時に `dist/images/` へコピーされます。
 
 ## Contact
 

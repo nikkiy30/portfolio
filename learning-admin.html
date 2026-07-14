@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Learning Admin</title>
+  <meta
+    name="description"
+    content="Studyfolio のLearningデータをローカルで作成するための管理者用ページです。"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="learning">
+  <div class="page-shell">
+    <header class="site-header compact-header">
+      <nav class="topbar">
+        <a class="brand" href="index.html">Portfolio</a>
+        <div class="topbar-links">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
+          <a href="learning.html" data-nav="learning">Learning</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="learning-toolbar" aria-label="Learning admin overview">
+        <div>
+          <p class="eyebrow">Local Admin</p>
+          <h1>学習データ作成</h1>
+        </div>
+        <div class="learning-status-strip" aria-label="管理者画面の扱い">
+          <span>Local Only</span>
+          <span>Not Deployed</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="learning-split-grid">
+          <section class="panel admin-panel" aria-labelledby="admin-panel-title">
+            <div class="panel-heading-row">
+              <div>
+                <p class="card-label">Admin Screen</p>
+                <h2 id="admin-panel-title">管理者入力</h2>
+              </div>
+              <button class="button button-secondary button-small" type="button" id="task-reset-button">すべて削除</button>
+            </div>
+
+            <form id="task-form" class="task-form">
+              <label>
+                タスク名
+                <input type="text" id="task-title-input" name="title" placeholder="例: ポートフォリオの作品詳細ページを考える" required>
+              </label>
+              <label>
+                ステータス
+                <select id="task-status-input" name="status">
+                  <option value="進行中">進行中</option>
+                  <option value="これから">これから</option>
+                  <option value="完了">完了</option>
+                </select>
+              </label>
+              <label>
+                メモ
+                <textarea id="task-note-input" name="note" rows="4" placeholder="何を進めているか、次に何をするかを書けます"></textarea>
+              </label>
+              <button class="button button-primary" type="submit">タスクを追加</button>
+            </form>
+
+            <div class="admin-task-area">
+              <p class="card-label">Admin List</p>
+              <div id="task-list" class="task-list"></div>
+            </div>
+          </section>
+
+          <section class="user-preview-column" aria-labelledby="preview-panel-title">
+            <article class="panel task-insight-panel">
+              <p class="card-label">Task Status</p>
+              <h2 id="preview-panel-title">プレビュー</h2>
+              <div class="task-counts" aria-label="タスク数">
+                <div>
+                  <span id="task-count-total">0</span>
+                  <small>Total</small>
+                </div>
+                <div>
+                  <span id="task-count-active">0</span>
+                  <small>Active</small>
+                </div>
+                <div>
+                  <span id="task-count-done">0</span>
+                  <small>Done</small>
+                </div>
+              </div>
+              <div class="task-progress-list" aria-label="ステータス別の進捗">
+                <div class="task-progress-row">
+                  <div>
+                    <strong>これから</strong>
+                    <span id="task-count-todo">0</span>
+                  </div>
+                  <span class="task-progress-track">
+                    <span class="task-progress-fill task-progress-todo" id="task-progress-todo"></span>
+                  </span>
+                </div>
+                <div class="task-progress-row">
+                  <div>
+                    <strong>進行中</strong>
+                    <span id="task-count-active-row">0</span>
+                  </div>
+                  <span class="task-progress-track">
+                    <span class="task-progress-fill task-progress-active" id="task-progress-active"></span>
+                  </span>
+                </div>
+                <div class="task-progress-row">
+                  <div>
+                    <strong>完了</strong>
+                    <span id="task-count-done-row">0</span>
+                  </div>
+                  <span class="task-progress-track">
+                    <span class="task-progress-fill task-progress-done" id="task-progress-done"></span>
+                  </span>
+                </div>
+              </div>
+              <p class="task-insight-note" id="task-limit-note">最新4件を表示します。</p>
+            </article>
+
+            <article class="panel task-list-panel">
+              <p class="card-label">Current Tasks</p>
+              <h3>公開時の見え方</h3>
+              <div id="preview-task-list" class="task-list preview-task-list"></div>
+            </article>
+
+            <article class="panel admin-export-panel">
+              <p class="card-label">Export</p>
+              <h3>公開用データ</h3>
+              <p>内容を確認し、必要なときに <code>data/learning-tasks.js</code> へ反映します。</p>
+              <textarea id="task-export-output" class="task-export-output" rows="10" readonly></textarea>
+            </article>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data/learning-tasks.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

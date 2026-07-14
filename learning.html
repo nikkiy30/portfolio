@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
+  <link rel="icon" href="favicon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Learning</title>
   <meta
     name="description"
-    content="Studyfolio のLearningページ。現在の学習テーマと進行中タスクを管理します。"
+    content="Studyfolio のLearningページ。現在の学習状況を公開用に表示します。"
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,16 +37,17 @@
           <p class="eyebrow">Learning</p>
           <h1>学習ログボード</h1>
         </div>
-        <div class="learning-status-strip" aria-label="現在の学習状態">
-          <button class="button button-primary button-small" type="button" id="task-open-button">タスクを追加</button>
+        <div class="learning-status-strip" aria-label="データの表示方式">
+          <span>User Preview</span>
+          <span>Static Data</span>
         </div>
       </section>
 
       <section class="section">
-        <div class="task-board-grid">
+        <div class="learning-public-grid">
           <article class="panel task-insight-panel">
             <p class="card-label">Task Status</p>
-            <h3>今の進み具合</h3>
+            <h2 id="preview-panel-title">学習状況</h2>
             <div class="task-counts" aria-label="タスク数">
               <div>
                 <span id="task-count-total">0</span>
@@ -93,51 +95,16 @@
           </article>
 
           <article class="panel task-list-panel">
-            <div class="task-list-header">
-              <div>
-                <p class="card-label">Current Tasks</p>
-                <h3>学習中のタスク</h3>
-              </div>
-              <button class="button button-secondary button-small" type="button" id="task-reset-button">すべて削除</button>
-            </div>
-            <div id="task-list" class="task-list"></div>
+            <p class="card-label">Current Tasks</p>
+            <h3>公開中の学習タスク</h3>
+            <div id="preview-task-list" class="task-list preview-task-list"></div>
           </article>
         </div>
       </section>
-
-      <dialog class="task-dialog" id="task-dialog" aria-labelledby="task-dialog-title">
-        <div class="task-dialog-card">
-          <div class="task-dialog-header">
-            <div>
-              <p class="card-label">Task Input</p>
-              <h3 id="task-dialog-title">今やっているタスクを追加する</h3>
-            </div>
-            <button class="dialog-close-button" type="button" id="task-close-button" aria-label="閉じる">×</button>
-          </div>
-          <form id="task-form" class="task-form">
-            <label>
-              タスク名
-              <input type="text" id="task-title-input" name="title" placeholder="例: ポートフォリオの作品詳細ページを考える" required>
-            </label>
-            <label>
-              ステータス
-              <select id="task-status-input" name="status">
-                <option value="進行中">進行中</option>
-                <option value="これから">これから</option>
-                <option value="完了">完了</option>
-              </select>
-            </label>
-            <label>
-              メモ
-              <textarea id="task-note-input" name="note" rows="4" placeholder="何を進めているか、次に何をするかを書けます"></textarea>
-            </label>
-            <button class="button button-primary" type="submit">タスクを追加</button>
-          </form>
-        </div>
-      </dialog>
     </main>
   </div>
 
+  <script src="data/learning-tasks.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

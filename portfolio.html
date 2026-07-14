@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
+  <link rel="icon" href="favicon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Portfolio</title>
@@ -43,93 +44,13 @@
       </section>
 
       <section class="section">
-        <div class="portfolio-grid">
-          <article class="panel work-card accent-card" data-work-card data-search-text="studyfolio portfolio html css vanilla javascript 自己紹介 制作物 学習ログ">
-            <div class="work-preview work-preview-site" aria-label="Studyfolioの画面イメージ">
-              <span class="work-window-bar"></span>
-              <span class="work-preview-title">Studyfolio</span>
-              <span class="work-preview-line"></span>
-              <span class="work-preview-line short"></span>
-            </div>
-            <div class="work-card-body">
-              <p class="card-label">Project 01</p>
-              <h3>Studyfolio</h3>
-              <dl class="work-details">
-                <div>
-                  <dt>Purpose</dt>
-                  <dd>自己紹介、制作物、学習ログを分けて、成長途中の思考と実装を見せる。</dd>
-                </div>
-                <div>
-                  <dt>Built</dt>
-                  <dd>HTML / CSS / Vanilla JavaScript</dd>
-                </div>
-                <div>
-                  <dt>Next</dt>
-                  <dd>作品ごとのスクリーンショットと改善メモを追加する。</dd>
-                </div>
-              </dl>
-            </div>
-          </article>
-
-          <article class="panel work-card" data-work-card data-search-text="ui practice collection layout component 余白 配色 タイポグラフィ">
-            <div class="work-preview work-preview-ui" aria-label="UI Practice Collectionの画面イメージ">
-              <span class="work-window-bar"></span>
-              <span class="work-preview-card"></span>
-              <span class="work-preview-card"></span>
-              <span class="work-preview-card wide"></span>
-            </div>
-            <div class="work-card-body">
-              <p class="card-label">Project 02</p>
-              <h3>UI Practice Collection</h3>
-              <dl class="work-details">
-                <div>
-                  <dt>Purpose</dt>
-                  <dd>余白、配色、タイポグラフィの判断を言語化するためのUI練習集。</dd>
-                </div>
-                <div>
-                  <dt>Built</dt>
-                  <dd>Layout study / Component practice</dd>
-                </div>
-                <div>
-                  <dt>Next</dt>
-                  <dd>再現したUIの意図と改善点をカードごとに残す。</dd>
-                </div>
-              </dl>
-            </div>
-          </article>
-
-          <article class="panel work-card" data-work-card data-search-text="learning notes archive documentation reflection log 学習 メモ 改善">
-            <div class="work-preview work-preview-notes" aria-label="Learning Notes Archiveの画面イメージ">
-              <span class="work-window-bar"></span>
-              <span class="work-preview-row"></span>
-              <span class="work-preview-row"></span>
-              <span class="work-preview-row short"></span>
-            </div>
-            <div class="work-card-body">
-              <p class="card-label">Project 03</p>
-              <h3>Learning Notes Archive</h3>
-              <dl class="work-details">
-                <div>
-                  <dt>Purpose</dt>
-                  <dd>学んだこと、迷ったこと、次に直すことを残し、制作物の改善につなげる。</dd>
-                </div>
-                <div>
-                  <dt>Built</dt>
-                  <dd>Documentation / Reflection log</dd>
-                </div>
-                <div>
-                  <dt>Next</dt>
-                  <dd>制作物と学習メモを相互に参照できる形にする。</dd>
-                </div>
-              </dl>
-            </div>
-          </article>
-        </div>
+        <div class="portfolio-grid" id="portfolio-grid"></div>
         <p class="portfolio-empty" id="portfolio-empty" hidden>該当する成果物がありません。</p>
       </section>
     </main>
   </div>
 
+  <script src="data/portfolio-projects.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
