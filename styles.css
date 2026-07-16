@@ -11,6 +11,8 @@
   --blue: #2c5f8b;
   --blue-soft: #dce8f3;
   --shadow: 0 22px 60px rgba(58, 42, 18, 0.14);
+  --shell-max-width: 1180px;
+  --shell-side-gap: 32px;
 }
 
 * {
@@ -57,7 +59,7 @@ select {
 
 .page-shell {
   position: relative;
-  width: min(1180px, calc(100% - 32px));
+  width: min(var(--shell-max-width), calc(100% - var(--shell-side-gap)));
   margin: 0 auto;
   padding: 24px 0 72px;
 }
@@ -1049,13 +1051,14 @@ body[data-page="home"] .node-label {
 
   .home-statement {
     grid-template-columns: 1fr;
-
-    justify-items: center;
+    gap: 12px;
+    justify-items: stretch;
   }
 
   .statement-flow {
     width: 2px;
-    height: 28px;
+    height: 32px;
+    justify-self: center;
   }
 
   .statement-flow::before {
@@ -1063,12 +1066,22 @@ body[data-page="home"] .node-label {
     height: 100%;
   }
 
+  .statement-node,
+  .statement-goal {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .statement-node strong {
+    white-space: normal;
+  }
+
   .flow-dot {
     top: -12px;
     left: 50%;
 
     transform:
-      translateX(-50%);
+      translate(-50%, 0);
 
     animation:
       flowVertical 2.4s linear infinite;
@@ -2098,7 +2111,8 @@ body[data-page="home"] .selector-tab strong {
 
 @media (max-width: 720px) {
   .page-shell {
-    width: min(100% - 20px, 100%);
+    --shell-side-gap: 20px;
+    width: min(100%, calc(100% - var(--shell-side-gap)));
     padding-top: 14px;
   }
 
@@ -2145,17 +2159,56 @@ body[data-page="home"] .selector-tab strong {
     grid-template-columns: 1fr;
   }
 
-  .home-statement {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .home-statement span {
-    display: none;
-  }
-
   .about-visual-card {
     min-height: 300px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --shell-max-width: 1360px;
+    --shell-side-gap: 56px;
+  }
+
+  .hero-grid {
+    gap: 32px;
+  }
+
+  body[data-page="home"] .hero-grid {
+    grid-template-columns: 1.28fr 0.92fr;
+  }
+
+  body[data-page="home"] .hero-copy,
+  body[data-page="home"] .home-selector-card {
+    padding: clamp(32px, 2.5vw, 44px);
+  }
+
+  body[data-page="home"] .hero h1 {
+    font-size: clamp(3.2rem, 4vw, 5rem);
+  }
+
+  body[data-page="home"] .lead {
+    max-width: 70ch;
+    font-size: 1.04rem;
+  }
+
+  body[data-page="home"] .home-statement {
+    max-width: 100%;
+  }
+
+  body[data-page="home"] .selector-tabs {
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --shell-max-width: 1520px;
+    --shell-side-gap: 72px;
+  }
+
+  body[data-page="home"] .hero h1 {
+    font-size: clamp(3.4rem, 3.6vw, 5.4rem);
   }
 }
 
