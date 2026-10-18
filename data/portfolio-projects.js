@@ -1,15 +1,15 @@
 window.portfolioProjects = [
   {
     "id": 1,
-    "title": "Studyfolio（当サイト）",
+    "title": "nikkiy's portfolio（当サイト）",
     "purpose": "自己紹介、制作物、学習ログを分けて、成長途中の思考と実装を見せる。",
     "built": "HTML / CSS / Vanilla JavaScript",
     "next": "成果物を増やす、完全動的なサイトへの拡充",
-    "searchText": "studyfolio portfolio html css vanilla javascript 自己紹介 制作物 学習ログ",
+    "searchText": "nikkiy portfolio html css vanilla javascript 自己紹介 制作物 学習ログ",
     "previewType": "site",
     "image": {
       "src": "images/portfolio-studyfolio-work.png",
-      "alt": "Studyfolio制作作業のイメージ"
+      "alt": "ポートフォリオ制作作業のイメージ"
     }
   },
   {

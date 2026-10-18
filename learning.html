@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <link rel="icon" href="favicon.png">
@@ -7,7 +7,7 @@
   <title>Portfolio | Learning</title>
   <meta
     name="description"
-    content="Studyfolio のLearningページ。現在の学習状況を公開用に表示します。"
+    content="nikkiy's portfolio のLearningページ。現在の学習状況を公開用に表示します。"
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,18 +15,18 @@
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
     rel="stylesheet"
   >
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="portfolio-theme.css">
 </head>
 <body data-page="learning">
   <div class="page-shell">
     <header class="site-header compact-header">
       <nav class="topbar">
-        <a class="brand" href="index.html">Portfolio</a>
+        <a class="brand" href="index.html">nikkiy's portfolio</a>
         <div class="topbar-links">
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
-          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
-          <a href="learning.html" data-nav="learning">Learning</a>
+          <a href="portfolio.html" data-nav="portfolio">nikkiy's portfolio</a>
+
         </div>
       </nav>
     </header>
@@ -35,15 +35,69 @@
       <section class="learning-toolbar" aria-label="Learning overview">
         <div>
           <p class="eyebrow">Learning</p>
-          <h1>学習ログボード</h1>
+          <h1>学習と制作の現在地</h1>
         </div>
         <div class="learning-status-strip" aria-label="データの表示方式">
-          <span>User Preview</span>
-          <span>Static Data</span>
+          <span>Learning Tasks</span>
+          <span>Portfolio Signals</span>
         </div>
       </section>
 
       <section class="section">
+        <div class="learning-dashboard" aria-label="Learning dashboard">
+          <article class="learning-radar-panel">
+            <div>
+              <p class="card-label">Learning Map</p>
+              <h2>学習テーマの分布</h2>
+            </div>
+            <div class="learning-orbit" aria-hidden="true">
+              <span class="orbit-ring orbit-ring-one"></span>
+              <span class="orbit-ring orbit-ring-two"></span>
+              <span class="orbit-core">Learning</span>
+              <span class="orbit-node orbit-node-data">Data</span>
+              <span class="orbit-node orbit-node-ai">AI</span>
+              <span class="orbit-node orbit-node-web">Web</span>
+              <span class="orbit-node orbit-node-docs">Docs</span>
+            </div>
+          </article>
+
+          <article class="panel learning-source-panel">
+            <p class="card-label">Signals</p>
+            <h2>他ページから見える学習材料</h2>
+            <div class="learning-signal-grid">
+              <div>
+                <span id="learning-project-count">0</span>
+                <small>公開成果物</small>
+              </div>
+              <div>
+                <span id="learning-award-count">0</span>
+                <small>受賞・評価</small>
+              </div>
+              <div>
+                <span id="learning-tech-count">0</span>
+                <small>技術キーワード</small>
+              </div>
+            </div>
+            <div class="learning-topic-bars" aria-label="学習テーマ別の関連度">
+              <div class="topic-row topic-row-ai">
+                <strong>Data / AI</strong>
+                <p>データの傾向を読み取り、AIや機械学習を使って課題解決の仮説を作る領域。</p>
+                <span><i id="learning-bar-ai"></i></span>
+              </div>
+              <div class="topic-row topic-row-web">
+                <strong>Web / App</strong>
+                <p>分析やアイデアを、実際に操作できる画面やアプリとして試すための実装領域。</p>
+                <span><i id="learning-bar-web"></i></span>
+              </div>
+              <div class="topic-row topic-row-docs">
+                <strong>Documentation</strong>
+                <p>目的、実装判断、改善点を言語化し、制作物として伝わる形に整える領域。</p>
+                <span><i id="learning-bar-docs"></i></span>
+              </div>
+            </div>
+          </article>
+        </div>
+
         <div class="learning-public-grid">
           <article class="panel task-insight-panel">
             <p class="card-label">Task Status</p>
@@ -104,6 +158,7 @@
     </main>
   </div>
 
+  <script src="data/portfolio-projects.js"></script>
   <script src="data/learning-tasks.js"></script>
   <script src="script.js"></script>
 </body>

@@ -103,3 +103,11 @@ HTML / CSS / Vanilla JavaScript で構成され、ブラウザで `index.html` �
 - `docs/LEARNING_NOTES.md` に、実装から学んだことと再実装ポイントを記録する。
 - 必要になった場合だけバックエンドやテスト環境を追加する。
 - `.env` が必要な機能を追加する場合も、公開リポジトリには `.env.example` のみ置く。
+
+## 2026-10-12 dramatic-design移行
+
+- 名称は nikkiy's portfolio、表紙フレーズは Love in My Heart。参考HTMLを構造の出発点とし、作品画像・人物の関心・判断軸・制作年表を実サイトへ反映。
+- portfolio-theme.cssは表紙と公開ページの共通スタイル。styles.cssは管理フォームなど既存機能のスタイルとして継続利用。
+- developer-admin.htmlをローカル開発者用の入口に追加。learning.htmlは互換用にソースを残すが、公開ナビと公開ビルドから除外。
+- 公開ページはdataファイルだけを使用。localStorageの下書きは対応する管理画面内だけで使用。既存保存キーは下書き互換のため維持。
+- Aboutの未確認の年月・所属は公開表示から外した。確認済みの制作年とイベント名を表示。Aboutは手動更新、Learningからの自動反映は未実装。

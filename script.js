@@ -1,4 +1,4 @@
-﻿const defaultTasks = [];
+const defaultTasks = [];
 
 const page = document.body.dataset.page;
 const navLinks = document.querySelectorAll("[data-nav]");
@@ -6,6 +6,7 @@ const navLinks = document.querySelectorAll("[data-nav]");
 navLinks.forEach((link) => {
   if (link.dataset.nav === page) {
     link.classList.add("is-current");
+    link.setAttribute("aria-current", "page");
   }
 });
 
@@ -42,6 +43,12 @@ const taskProgressTodo = document.getElementById("task-progress-todo");
 const taskProgressActive = document.getElementById("task-progress-active");
 const taskProgressDone = document.getElementById("task-progress-done");
 const taskLimitNote = document.getElementById("task-limit-note");
+const learningProjectCount = document.getElementById("learning-project-count");
+const learningAwardCount = document.getElementById("learning-award-count");
+const learningTechCount = document.getElementById("learning-tech-count");
+const learningBarAi = document.getElementById("learning-bar-ai");
+const learningBarWeb = document.getElementById("learning-bar-web");
+const learningBarDocs = document.getElementById("learning-bar-docs");
 const previewTypeLabels = {
   site: "Webサイト画面",
   mobile: "モバイルアプリ画面",
@@ -65,13 +72,13 @@ function readStoredArray(key) {
 }
 
 function loadTasks() {
-  const storedTasks = readStoredArray(storageKey);
+  const storedTasks = isLearningAdmin ? readStoredArray(storageKey) : null;
 
   if (storedTasks) {
     return storedTasks;
   }
 
-  return isLearningAdmin ? defaultTasks : staticLearningTasks;
+  return staticLearningTasks;
 }
 
 function saveTasks(tasks) {
@@ -83,7 +90,7 @@ function createLearningDataSource(tasks) {
 }
 
 function loadPortfolioProjects() {
-  const storedProjects = readStoredArray(portfolioStorageKey);
+  const storedProjects = isPortfolioAdmin ? readStoredArray(portfolioStorageKey) : null;
 
   if (storedProjects) {
     return storedProjects;
@@ -354,9 +361,59 @@ function renderTaskList(target, tasks, options = {}) {
   });
 }
 
+function getUniqueTechKeywords(projects) {
+  const keywords = new Set();
+
+  projects.forEach((project) => {
+    String(project.built || "")
+      .split("/")
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .forEach((item) => keywords.add(item));
+  });
+
+  return keywords;
+}
+
+function scoreLearningTopic(sourceText, terms) {
+  return terms.reduce((score, term) => {
+    return sourceText.includes(term.toLowerCase()) ? score + 1 : score;
+  }, 0);
+}
+
+function renderLearningSignals(tasks) {
+  if (!learningProjectCount && !learningAwardCount && !learningTechCount) {
+    return;
+  }
+
+  const projects = loadPortfolioProjects();
+  const awards = projects.reduce((count, project) => {
+    return count + (Array.isArray(project.awards) ? project.awards.length : 0);
+  }, 0);
+  const techKeywords = getUniqueTechKeywords(projects);
+  const sourceText = [
+    ...tasks.map((task) => `${task.title || ""} ${task.note || ""}`),
+    ...projects.map((project) => `${project.title || ""} ${project.purpose || ""} ${project.built || ""} ${project.next || ""} ${project.searchText || ""}`)
+  ].join(" ").toLowerCase();
+
+  const aiScore = scoreLearningTopic(sourceText, ["ai", "機械学習", "machine learning", "word2vec", "自然言語処理", "データ", "python"]);
+  const webScore = scoreLearningTopic(sourceText, ["html", "css", "javascript", "react", "next.js", "expo", "web", "アプリ", "typescript"]);
+  const docsScore = scoreLearningTopic(sourceText, ["説明", "整理", "学習ログ", "portfolio", "公開", "改善", "発表"]);
+  const maxScore = Math.max(aiScore, webScore, docsScore, 1);
+
+  if (learningProjectCount) learningProjectCount.textContent = String(projects.length);
+  if (learningAwardCount) learningAwardCount.textContent = String(awards);
+  if (learningTechCount) learningTechCount.textContent = String(techKeywords.size);
+
+  if (learningBarAi) learningBarAi.style.width = `${Math.max((aiScore / maxScore) * 100, 12)}%`;
+  if (learningBarWeb) learningBarWeb.style.width = `${Math.max((webScore / maxScore) * 100, 12)}%`;
+  if (learningBarDocs) learningBarDocs.style.width = `${Math.max((docsScore / maxScore) * 100, 12)}%`;
+}
+
 function renderTasks() {
   const tasks = loadTasks();
   renderTaskCounts(tasks);
+  renderLearningSignals(tasks);
   renderTaskList(taskList, tasks, {
     withDelete: true,
     label: "Admin Task",

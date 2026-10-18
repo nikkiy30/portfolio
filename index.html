@@ -1,121 +1,23 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <link rel="icon" href="favicon.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Home</title>
-  <meta
-    name="description"
-    content="自己紹介、ポートフォリオ、学習ログを分けて見せる Studyfolio のホームページです。"
-  >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>nikkiy's portfolio — Love in My Heart</title>
+<meta name="description" content="nikkiy's portfolio。データと言葉を、心が動く体験へ。作品と制作の軌跡。">
+<link rel="icon" href="favicon.png"><link rel="stylesheet" href="portfolio-theme.css">
 </head>
-<body data-page="home">
-  <div class="page-shell">
-    <header class="site-header compact-header">
-      <nav class="topbar">
-        <a class="brand" href="index.html">Portfolio</a>
-        <div class="topbar-links">
-          <a href="index.html" data-nav="home">Home</a>
-          <a href="about.html" data-nav="about">About</a>
-          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
-          <a href="learning.html" data-nav="learning">Learning</a>
-        </div>
-      </nav>
-    </header>
+<body data-page="home"><a class="skip-link" href="#main">本文へ</a>
 
-    <main>
-      <section class="hero hero-home">
-        <div class="hero-grid hero-grid-wide">
-          <div class="hero-copy">
-            <p class="eyebrow">Skill Portfolio</p>
-            <h1>
-              分析を、
-              <span>価値ある体験へ変える。</span>
-            </h1>
-            <p class="lead">
-              データサイエンスを学びながら、分析・実装・振り返りをポートフォリオとして整理しています。
-              About では視点を、Portfolio と Learning では制作と学習の過程を見せます。
-            </p>
-            
-            <div class="home-statement">
-
-              <div class="statement-node">
-                <span class="node-label">INPUT</span>
-                <strong>数理的な理解</strong>
-              </div>
-
-              <div class="statement-flow">
-                <span class="flow-dot"></span>
-              </div>
-
-              <div class="statement-node">
-                <span class="node-label">INTERPRET</span>
-                <strong>課題の解釈</strong>
-              </div>
-
-              <div class="statement-flow statement-flow-focus">
-                <span class="flow-dot"></span>
-              </div>
-
-              <div class="statement-node statement-goal">
-                <span class="node-label">OUTPUT</span>
-                <strong>価値あるアウトプット</strong>
-              </div>
-
-            </div>
-            
-            <dl class="home-metrics">
-              <div>
-                <h5>Focus（興味のあるコンテンツ）</h5>
-                <div class="about-focus">
-                  <span>Data Science</span>
-                  <span>Machine Learning</span>
-                  <span>AI</span>
-                  <span>Algorithm</span>
-                </div>
-              </div>
-            </dl>
-          </div>
-
-          <aside class="hero-card home-selector-card">
-            <p class="card-label">Explore</p>
-            <h2>見たい情報へ進む</h2>
-            <div class="selector-tabs">
-              <a class="selector-tab selector-link-card" href="about.html">
-                <span class="tab-number">01</span>
-                <strong>About</strong>
-                <p>関心分野、学習姿勢、価値観を確認できます。</p>
-                <span class="selector-arrow">詳しく見る →</span>
-              </a>
-              <a class="selector-tab selector-link-card" href="portfolio.html">
-                <span class="tab-number">02</span>
-                <strong>Portfolio</strong>
-                <p>制作物の目的、工夫、次の改善点を整理しています。</p>
-                <span class="selector-arrow">詳しく見る →</span>
-              </a>
-              <a class="selector-tab selector-link-card" href="learning.html">
-                <span class="tab-number">03</span>
-                <strong>Learning</strong>
-                <p>現在地、学習テーマ、進行中タスクを見られます。</p>
-                <span class="selector-arrow">詳しく見る →</span>
-              </a>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-
-    </main>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<div class="shell">
+<header class="top"><a class="brand" href="index.html">nikkiy's portfolio</a><nav class="nav" aria-label="メインナビゲーション"><a href="index.html" data-nav="home">Home</a><a href="portfolio.html" data-nav="portfolio">Works</a><a href="about.html" data-nav="about">About / Journey</a></nav></header>
+<main id="main">
+<section class="hero" id="home" aria-labelledby="main-title"><div><p class="eyebrow">Data · Language · Experience</p><h1 id="main-title">Love<br>in My <em>Heart.</em></h1><p class="lead">好きという気持ちを、ものづくりの真ん中に。<br>データと言葉から、人の心が動く体験を。</p><a class="more" href="#works">Explore my work ↓</a></div><div class="hero-art" role="img" aria-label="ハートと軌道を組み合わせた表紙のビジュアル"><div class="heart"></div><div class="orbit"></div><span class="art-label">Made with curiosity, shaped with care.</span></div></section>
+<div class="hero-bottom"><span>nikkiy / Portfolio</span><span>機械学習・自然言語処理・Web / アプリ開発</span><span>作品と、その先の学びへ ↓</span></div>
+<section class="section" id="works" aria-labelledby="works-title"><div class="section-head"><h2 id="works-title">Selected works</h2><a class="more" href="portfolio.html">すべての作品を見る →</a></div><div class="works">
+<article class="work"><div class="work-image"><img src="images/かつうどん_最終成果発表.png" alt="Chopの最終成果発表資料" loading="lazy"></div><div class="work-head"><h3>Chop</h3><span class="tag">2025 / APP</span></div><p>購入前のAI診断で、食品ロスを未然に防ぐ。</p><p class="tag">React Native / Expo / TypeScript / SQLite</p><p class="tag">Tornado 2025 最優秀賞</p><details><summary>作品について</summary><p>AI買い物サポートアプリ。次の改善テーマは、廃棄履歴を活用した診断精度と継続率の向上。</p><a class="more" href="https://github.com/yudo417/Workspace_katsuUdon" target="_blank" rel="noopener noreferrer">GitHubで見る ↗</a></details></article>
+<article class="work"><div class="work-image"><img src="images/ガバイソン_2026_春.png" alt="コトコトバのガバイソン2026春発表資料" loading="lazy"></div><div class="work-head"><h3>コトコトバ</h3><span class="tag">2026 / GAME</span></div><p>言葉の錬成を、ゲームとして楽しむ。</p><p class="tag">Python / FastAPI / Word2Vec / Next.js</p><p class="tag">ガバイソン2026春 最優秀賞</p><details><summary>作品について</summary><p>言葉を錬成して100億を目指すゲーム。次の改善テーマは、語彙の偏り改善と対戦ルール・演出の拡充。</p><a class="more" href="https://github.com/nu-chotech/coto2-ba" target="_blank" rel="noopener noreferrer">GitHubで見る ↗</a>　<a class="more" href="https://coto2-ba.ut42tech.com/" target="_blank" rel="noopener noreferrer">Demo ↗</a></details></article>
+</div></section>
+<section class="section about" id="about" aria-labelledby="about-title"><div><span class="eyebrow">Behind the work</span><h2 id="about-title">Hello, I'm nikkiy.</h2><div class="keywords"><span>Data science</span><span>NLP</span><span>App development</span></div></div><div><p>データサイエンスとAIを学びながら、Webやアプリを制作しています。興味があるのは、技術が日常の課題や遊びに結びつく瞬間です。</p><p>何を作ったかに加えて、なぜその方法を選んだのか、どう確かめたのか。制作と改善の過程まで伝わるポートフォリオを目指しています。</p></div></section>
+<section class="section" id="journey" aria-labelledby="journey-title"><div class="section-head"><h2 id="journey-title">My journey</h2><span>経験を、次のものづくりにつなげる。</span></div><div class="journey"><article class="event"><div class="year">2025</div><h3>Chop / Tornado 2025</h3><p>AI買い物サポートアプリを制作。<br>Tornado 2025 最優秀賞。</p></article><article class="event"><div class="year">2026 Spring</div><h3>コトコトバ / ガバイソン</h3><p>Word2Vecを用いた言葉のゲームを制作。<br>ガバイソン2026春 最優秀賞。</p></article><article class="event"><div class="year">Next</div><h3>制作から、改善と検証へ</h3><p>これからの方針：設計判断や改善の記録を整理し、作品の背景として伝える。</p></article></div></section>
+</main><footer class="footer"><span>nikkiy's portfolio</span><em>Love in My Heart</em><span>© 2026 nikkiy</span></footer>
+</div><script src="script.js"></script></body></html>

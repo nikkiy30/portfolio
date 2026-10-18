@@ -1,4 +1,4 @@
-# Skill Portfolio
+# nikkiy's portfolio — Love in My Heart
 
 データサイエンスの視点と実装力を見せるポートフォリオサイト。
 分析から価値あるアウトプットまでのプロセスを言葉と制作物で伝えます。
@@ -16,11 +16,11 @@
 - **Home** - ポートフォリオの全体像とSkill紹介
 - **About** - 人物像、興味分野、学習姿勢
 - **Portfolio** - 制作物とその背景
-- **Learning** - 現在の学習状況と進行中のタスク
+- **Developer tools** - ローカル専用の開発記録・作品データ管理（developer-admin.html）
 
 ## Design
 
-- フローベースのビジュアル設計
+- ハートと軌道、作品画像、制作年表によるビジュアル設計
 - 主要ページへの軽い導線設計
 - レスポンシブ対応
 - アニメーション演出
@@ -28,7 +28,7 @@
 ## Tech Stack
 
 - HTML5 / CSS3 / Vanilla JavaScript
-- Google Fonts (Manrope, Noto Sans JP)
+- Home / AboutはシステムフォントとGeorgia。既存ページはGoogle Fontsを併用
 - CSS Grid / Flexbox
 
 ## Features
@@ -51,7 +51,7 @@
 - `learning-admin.html` はローカル編集用です。Netlifyでは `netlify.toml` により公開対象の `dist/` へコピーしません。
 - Learningの公開データは `data/learning-tasks.js` で管理します。
 - `portfolio-admin.html` もローカル編集用です。Portfolioの公開データは `data/portfolio-projects.js` で管理します。
-- admin画面で編集した内容は同じブラウザの公開プレビューにも反映されます。再配布やデプロイ時は、`dataファイルを保存` で `data/*.js` を更新してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
+- 下書きは管理画面内のプレビューだけに反映され、公開ページはdataファイルを使います。再配布やデプロイ時は、`dataファイルを保存` で `data/*.js` を更新してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
 - `scripts/build-dist.sh` は公開用HTMLを自動コピーしますが、`*-admin.html` は公開しないため除外します。
 - Portfolioの写真は `images/` に置き、`data/portfolio-projects.js` の `image.src` から参照します。ビルド時に `dist/images/` へコピーされます。
 
