@@ -1,0 +1,37 @@
+Official brand asset sources - verified 2026-10-19
+Files below are unmodified copies of official downloads. Scaling preserves aspect ratio. No affiliation or endorsement is implied.
+These marks belong to their respective owners; they are not relicensed under this project license.
+GITHUB and INVERTOCAT are trademarks of GitHub, Inc.
+LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn Corporation and its affiliates in the United States and/or other countries.
+
+File: images/icon-github.svg
+Guideline: https://brand.github.com/foundations/logo
+Download: https://brand.github.com/GitHub_Logos.zip
+Archive entry: GitHub Logos/SVG/GitHub_Invertocat_Black.svg
+SHA-256: 693D7ABE6F899646CC2E96856723B45E95F71885A54910B2749F6DECDF7E1EE1
+
+File: images/icon-x.png
+Guideline: https://about.x.com/ja/who-we-are/brand-toolkit
+Download: https://about.x.com/content/dam/about-twitter/x/brand-toolkit/x-logo.zip
+Archive entry: logo-black.png
+SHA-256: 391A3A86F40E253B584DEFA5F284C7402A2175A705EBB2B4B9460112FC92DC77
+
+File: images/icon-note.svg
+Guideline: https://www.help-note.com/hc/ja/articles/360000235582
+Download: https://www.help-note.com/hc/ja/article_attachments/17204878543513
+Archive entry: note Visual Identity/main/icon.svg
+SHA-256: 06310AB97E70BE8B822261F3BC1AAFF30A30C7185C93E9A55B19A948460B51E6
+
+File: images/icon-wantedly.svg
+Guideline: https://wantedlyinc.com/brand_assets/
+Download: https://d1dlw0u96vqtxd.cloudfront.net/images/home/brand_assets/downloads/WantedlyCorporateLogo.zip
+Archive entry: Mark/Monochrome/RGB/Wantedly_Mark_Blk.svg
+SHA-256: 1270A329FF8612783E41D2E0BEF6B3FCC0CF5DA48FE534FB983E26C603C2E7CA
+
+File: images/icon-linkedin.png
+Guideline: https://brand.linkedin.com/in-logo
+Download: https://content.linkedin.com/content/dam/me/business/en-us/amp/xbu/linkedin-revised-brand-guidelines/logos/in-logo.zip
+Archive entry: in-logo/InBug-Black.png
+SHA-256: B80AB65537AAD1B5013DA98FE82D1C36C1BB4CA896FE7829A880CC5F307693CA
+
+Superseded icon-linkedin.svg and white icon-x.svg are not referenced by public pages. icon-web.svg is a project-authored generic web symbol. ChoTech artwork was provided by the site owner; it is not a third-party icon-library substitute.

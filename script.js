@@ -1,4 +1,4 @@
-﻿const defaultTasks = [];
+const defaultTasks = [];
 
 const page = document.body.dataset.page;
 const navLinks = document.querySelectorAll("[data-nav]");
@@ -6,6 +6,7 @@ const navLinks = document.querySelectorAll("[data-nav]");
 navLinks.forEach((link) => {
   if (link.dataset.nav === page) {
     link.classList.add("is-current");
+    link.setAttribute("aria-current", "page");
   }
 });
 
@@ -42,6 +43,12 @@ const taskProgressTodo = document.getElementById("task-progress-todo");
 const taskProgressActive = document.getElementById("task-progress-active");
 const taskProgressDone = document.getElementById("task-progress-done");
 const taskLimitNote = document.getElementById("task-limit-note");
+const learningProjectCount = document.getElementById("learning-project-count");
+const learningAwardCount = document.getElementById("learning-award-count");
+const learningTechCount = document.getElementById("learning-tech-count");
+const learningBarAi = document.getElementById("learning-bar-ai");
+const learningBarWeb = document.getElementById("learning-bar-web");
+const learningBarDocs = document.getElementById("learning-bar-docs");
 const previewTypeLabels = {
   site: "Webサイト画面",
   mobile: "モバイルアプリ画面",
@@ -65,13 +72,13 @@ function readStoredArray(key) {
 }
 
 function loadTasks() {
-  const storedTasks = readStoredArray(storageKey);
+  const storedTasks = isLearningAdmin ? readStoredArray(storageKey) : null;
 
   if (storedTasks) {
     return storedTasks;
   }
 
-  return isLearningAdmin ? defaultTasks : staticLearningTasks;
+  return staticLearningTasks;
 }
 
 function saveTasks(tasks) {
@@ -83,7 +90,7 @@ function createLearningDataSource(tasks) {
 }
 
 function loadPortfolioProjects() {
-  const storedProjects = readStoredArray(portfolioStorageKey);
+  const storedProjects = isPortfolioAdmin ? readStoredArray(portfolioStorageKey) : null;
 
   if (storedProjects) {
     return storedProjects;
@@ -354,9 +361,59 @@ function renderTaskList(target, tasks, options = {}) {
   });
 }
 
+function getUniqueTechKeywords(projects) {
+  const keywords = new Set();
+
+  projects.forEach((project) => {
+    String(project.built || "")
+      .split("/")
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .forEach((item) => keywords.add(item));
+  });
+
+  return keywords;
+}
+
+function scoreLearningTopic(sourceText, terms) {
+  return terms.reduce((score, term) => {
+    return sourceText.includes(term.toLowerCase()) ? score + 1 : score;
+  }, 0);
+}
+
+function renderLearningSignals(tasks) {
+  if (!learningProjectCount && !learningAwardCount && !learningTechCount) {
+    return;
+  }
+
+  const projects = loadPortfolioProjects();
+  const awards = projects.reduce((count, project) => {
+    return count + (Array.isArray(project.awards) ? project.awards.length : 0);
+  }, 0);
+  const techKeywords = getUniqueTechKeywords(projects);
+  const sourceText = [
+    ...tasks.map((task) => `${task.title || ""} ${task.note || ""}`),
+    ...projects.map((project) => `${project.title || ""} ${project.purpose || ""} ${project.built || ""} ${project.next || ""} ${project.searchText || ""}`)
+  ].join(" ").toLowerCase();
+
+  const aiScore = scoreLearningTopic(sourceText, ["ai", "機械学習", "machine learning", "word2vec", "自然言語処理", "データ", "python"]);
+  const webScore = scoreLearningTopic(sourceText, ["html", "css", "javascript", "react", "next.js", "expo", "web", "アプリ", "typescript"]);
+  const docsScore = scoreLearningTopic(sourceText, ["説明", "整理", "学習ログ", "portfolio", "公開", "改善", "発表"]);
+  const maxScore = Math.max(aiScore, webScore, docsScore, 1);
+
+  if (learningProjectCount) learningProjectCount.textContent = String(projects.length);
+  if (learningAwardCount) learningAwardCount.textContent = String(awards);
+  if (learningTechCount) learningTechCount.textContent = String(techKeywords.size);
+
+  if (learningBarAi) learningBarAi.style.width = `${Math.max((aiScore / maxScore) * 100, 12)}%`;
+  if (learningBarWeb) learningBarWeb.style.width = `${Math.max((webScore / maxScore) * 100, 12)}%`;
+  if (learningBarDocs) learningBarDocs.style.width = `${Math.max((docsScore / maxScore) * 100, 12)}%`;
+}
+
 function renderTasks() {
   const tasks = loadTasks();
   renderTaskCounts(tasks);
+  renderLearningSignals(tasks);
   renderTaskList(taskList, tasks, {
     withDelete: true,
     label: "Admin Task",
@@ -441,148 +498,6 @@ if (taskSaveFileButton) {
 const portfolioSearch = document.getElementById("portfolio-search");
 const portfolioEmpty = document.getElementById("portfolio-empty");
 
-function createWorkPreview(project) {
-  const type = ["site", "mobile", "ui", "notes"].includes(project.previewType) ? project.previewType : "site";
-
-  if (project.image && project.image.src) {
-    const preview = document.createElement("figure");
-    preview.className = "work-preview work-photo";
-    preview.setAttribute("aria-label", `${project.title}の写真`);
-
-    const image = document.createElement("img");
-    image.src = project.image.src;
-    image.alt = project.image.alt || `${project.title}の画面イメージ`;
-    image.loading = "lazy";
-
-    preview.appendChild(image);
-    return preview;
-  }
-
-  const preview = document.createElement("div");
-  preview.className = `work-preview work-preview-${type}`;
-  preview.setAttribute("aria-label", `${project.title}の画面イメージ`);
-
-  const bar = document.createElement("span");
-  bar.className = "work-window-bar";
-  preview.appendChild(bar);
-
-  if (type === "mobile") {
-    const phone = document.createElement("span");
-    phone.className = "work-preview-phone";
-
-    ["header", "", "", "short"].forEach((modifier) => {
-      const row = document.createElement("span");
-      row.className = modifier ? `work-preview-mobile-row ${modifier}` : "work-preview-mobile-row";
-      phone.appendChild(row);
-    });
-
-    preview.appendChild(phone);
-    return preview;
-  }
-
-  if (type === "ui") {
-    ["", "", "wide"].forEach((modifier) => {
-      const card = document.createElement("span");
-      card.className = modifier ? `work-preview-card ${modifier}` : "work-preview-card";
-      preview.appendChild(card);
-    });
-    return preview;
-  }
-
-  if (type === "notes") {
-    ["", "", "short"].forEach((modifier) => {
-      const row = document.createElement("span");
-      row.className = modifier ? `work-preview-row ${modifier}` : "work-preview-row";
-      preview.appendChild(row);
-    });
-    return preview;
-  }
-
-  const title = document.createElement("span");
-  title.className = "work-preview-title";
-  title.textContent = project.title;
-  const line = document.createElement("span");
-  line.className = "work-preview-line";
-  const shortLine = document.createElement("span");
-  shortLine.className = "work-preview-line short";
-  preview.append(title, line, shortLine);
-  return preview;
-}
-
-function createWorkCard(project, index, options = {}) {
-  const article = document.createElement("article");
-  article.className = index === 0 && !options.compact ? "panel work-card accent-card" : "panel work-card";
-  article.dataset.workCard = "";
-  article.dataset.searchText = project.searchText || "";
-
-  const body = document.createElement("div");
-  body.className = "work-card-body";
-
-  const label = document.createElement("p");
-  label.className = "card-label";
-  label.textContent = `Project ${String(index + 1).padStart(2, "0")}`;
-
-  const title = document.createElement("h3");
-  title.textContent = project.title;
-
-  const badges = document.createElement("div");
-  badges.className = "work-badges";
-
-  if (Array.isArray(project.awards)) {
-    project.awards.forEach((award) => {
-      const badge = document.createElement("span");
-      badge.textContent = award;
-      badges.appendChild(badge);
-    });
-  }
-
-  const details = document.createElement("dl");
-  details.className = "work-details";
-
-  [
-    ["Purpose", project.purpose],
-    ["Built", project.built],
-    ["Next", project.next || "次の改善点を整理中です。"]
-  ].forEach(([term, description]) => {
-    const row = document.createElement("div");
-    const dt = document.createElement("dt");
-    const dd = document.createElement("dd");
-    dt.textContent = term;
-    dd.textContent = description;
-    row.append(dt, dd);
-    details.appendChild(row);
-  });
-
-  const links = document.createElement("div");
-  links.className = "work-links";
-
-  if (Array.isArray(project.links)) {
-    project.links.forEach((projectLink) => {
-      if (!projectLink.label || !projectLink.url) {
-        return;
-      }
-
-      const link = document.createElement("a");
-      link.href = projectLink.url;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-      link.textContent = projectLink.label;
-      links.appendChild(link);
-    });
-  }
-
-  body.append(label, title);
-  if (badges.children.length > 0) {
-    body.appendChild(badges);
-  }
-  body.appendChild(details);
-  if (links.children.length > 0) {
-    body.appendChild(links);
-  }
-  article.append(createWorkPreview(project), body);
-  return article;
-}
-
 function renderPortfolioAdminList(projects) {
   if (!portfolioAdminList) {
     return;
@@ -649,7 +564,7 @@ function renderPortfolioProjects() {
   portfolioGrid.innerHTML = "";
 
   projects.forEach((project, index) => {
-    portfolioGrid.appendChild(createWorkCard(project, index, { compact: isPortfolioAdmin }));
+    portfolioGrid.appendChild(createWorkCard(project, index, { compact: isPortfolioAdmin, headingLevel: isPortfolioAdmin ? "h3" : "h2" }));
   });
 
   renderPortfolioAdminList(projects);

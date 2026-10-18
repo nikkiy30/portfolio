@@ -29,3 +29,9 @@ AGENTS.md
 .agents/
 .codex/
 docs/
+
+# Local reference material and unapproved content (never publish to GitHub)
+/work/
+/memo.txt
+自己紹介スライド.pdf
+/docs/private/

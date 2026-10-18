@@ -1,56 +1,46 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <link rel="icon" href="favicon.png">
+  <link rel="icon" type="image/svg+xml" href="images/site-mark.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Portfolio</title>
+  <title>Works — nikkiy's portfolio</title>
   <meta
     name="description"
-    content="Studyfolio のポートフォリオページ。成果物を目的、工夫、改善点とあわせて整理しています。"
+    content="nikkiy's portfolio のポートフォリオページ。制作物の概要と使用技術を紹介します。"
   >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="portfolio-theme.css">
 </head>
 <body data-page="portfolio">
-  <div class="page-shell">
-    <header class="site-header compact-header">
-      <nav class="topbar">
-        <a class="brand" href="index.html">Portfolio</a>
-        <div class="topbar-links">
-          <a href="index.html" data-nav="home">Home</a>
-          <a href="about.html" data-nav="about">About</a>
-          <a href="portfolio.html" data-nav="portfolio">Portfolio</a>
-          <a href="learning.html" data-nav="learning">Learning</a>
-        </div>
-      </nav>
-    </header>
+  <a class="skip-link" href="#main">本文へ</a><div class="shell">
+    <header class="top"><a class="brand" href="index.html">nikkiy's portfolio</a><nav class="nav" aria-label="メインナビゲーション"><a href="index.html" data-nav="home">Home</a><a href="about.html" data-nav="about">About</a><a href="portfolio.html" data-nav="portfolio">Works</a><a href="index.html#favorites">Favorites</a></nav></header>
 
-    <main>
+    <main id="main">
       <section class="portfolio-toolbar" aria-label="Portfolio overview">
         <div>
-          <p class="eyebrow">Portfolio</p>
-          <h1>成果物一覧</h1>
+
+          <h1>Works</h1>
         </div>
         <label class="portfolio-searchbar">
-          <span>Search</span>
+          <span>作品を検索</span>
           <input id="portfolio-search" type="search" placeholder="成果物を検索">
         </label>
       </section>
 
       <section class="section">
-        <div class="portfolio-grid" id="portfolio-grid"></div>
+        <div class="portfolio-grid" id="portfolio-grid"></div><noscript><p>制作物の一覧表示にはJavaScriptを使用しています。<a href="https://github.com/nikkiy30">GitHubで制作物を見る</a></p></noscript>
         <p class="portfolio-empty" id="portfolio-empty" hidden>該当する成果物がありません。</p>
       </section>
-    </main>
+    </main><footer class="footer">
+  <div class="footer-identity"><span>nikkiy's portfolio</span><em>Love in My Heart</em></div>
+  <div class="footer-contact" id="contact" data-contact hidden>
+    <h2 id="contact-title">Contact</h2>
+    <ul class="contact-links" id="contact-links" aria-labelledby="contact-title"></ul>
+  </div>
+</footer>
   </div>
 
   <script src="data/portfolio-projects.js"></script>
-  <script src="script.js"></script>
+  <script src="data/contact-links.js"></script><script src="project-cards.js"></script><script src="public.js"></script>
 </body>
 </html>
