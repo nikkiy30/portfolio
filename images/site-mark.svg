@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>nikkiy's portfolio</title>
+  <rect width="64" height="64" rx="16" fill="#263a32"/>
+  <g fill="none" stroke="#f5f1e9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 43 29 29 40 38 51 18M40 18h11v11"/>
+    <path d="M15 43h25" opacity=".55"/>
+  </g>
+  <g fill="#f5f1e9"><circle cx="15" cy="43" r="4"/><circle cx="29" cy="29" r="4"/></g>
+  <circle cx="40" cy="38" r="4" fill="#eac2bb"/>
+</svg>

@@ -1,60 +1,49 @@
 # nikkiy's portfolio — Love in My Heart
 
-データサイエンスの視点と実装力を見せるポートフォリオサイト。
-分析から価値あるアウトプットまでのプロセスを言葉と制作物で伝えます。
+自己紹介、制作物、活動の軌跡、好きな音楽と風景を紹介する静的ポートフォリオ。
+HTML / CSS / Vanilla JavaScriptで構成しています。
 
-## What to See
+## ページとデータ
 
-このポートフォリオでは、単なる制作物一覧ではなく、以下の流れを見せることを重視しています。
+- Home: 表紙、自己紹介、作品、年表、Favorites
+- About: 所属と活動、制作・発表の年表
+- Works: 制作物の概要、使用技術、参照先と検索
+- 作品データ: data/portfolio-projects.js
+- 連絡先: data/contact-links.js
+- 公開表示: public.jsとproject-cards.js
+- ローカル編集: developer-admin.html、portfolio-admin.html、learning-admin.html、script.js
 
-- どんな視点で課題を見ているか
-- 学習や制作をどう進めているか
-- 分析や実装をどのように価値へつなげたいか
+## ローカル確認
 
-## Pages
+Node.js 24を使用。npmパッケージの追加インストールは不要です。
 
-- **Home** - ポートフォリオの全体像とSkill紹介
-- **About** - 人物像、興味分野、学習姿勢
-- **Portfolio** - 制作物とその背景
-- **Developer tools** - ローカル専用の開発記録・作品データ管理（developer-admin.html）
+```powershell
+node scripts/release.mjs
+node scripts/preview.mjs
+```
 
-## Design
+公開成果物を http://127.0.0.1:4173/ で確認します。終了はCtrl+C。
 
-- ハートと軌道、作品画像、制作年表によるビジュアル設計
-- 主要ページへの軽い導線設計
-- レスポンシブ対応
-- アニメーション演出
+ChromeまたはEdgeがある環境では次のブラウザ検証も実行できます。
 
-## Tech Stack
+```powershell
+node scripts/check-browser.mjs
+```
 
-- HTML5 / CSS3 / Vanilla JavaScript
-- Home / AboutはシステムフォントとGeorgia。既存ページはGoogle Fontsを併用
-- CSS Grid / Flexbox
+開発者ツールを使うときは次を実行します。
 
-## Features
+```powershell
+node scripts/preview.mjs --developer
+```
 
-- Perspective セクション：幾何学的な情報フロー表現
-- Portfolio Page：制作物を検索しながら確認できる一覧
-- Learning Page：静的データを読み込む公開用の学習ログボード
-- Smooth Animations：Cubic-bezier easing
+http://127.0.0.1:4174/developer-admin.html から作品フォームを開けます。フォームの書き出しを公開データファイルへ反映し、PRを通して更新します。Aboutと年表は現在手動更新です。
 
-## Getting Started
+## 公開
 
-1. ファイルをクローン
-2. `index.html` をブラウザで開く
+[公開・更新手順](PUBLISHING.md)に、GitHubへ保存するファイル、CI、本番ブランチ、Cloudflareの入力値をまとめています。
 
-## Notes
+公開はconfig/public-files.jsonに明記したファイルだけをdistへコピーします。管理画面・下書き用コード・学習データ・試作HTML・手元の資料は含みません。元のファイルを削除する仕組みではありません。公開用ビルドは生成物distだけを再生成します。
 
-- 現在は静的サイトです。
-- 外部APIやバックエンドは使っていません。
-- `.env` や秘密情報を使う前提の機能はありません。
-- `learning-admin.html` はローカル編集用です。Netlifyでは `netlify.toml` により公開対象の `dist/` へコピーしません。
-- Learningの公開データは `data/learning-tasks.js` で管理します。
-- `portfolio-admin.html` もローカル編集用です。Portfolioの公開データは `data/portfolio-projects.js` で管理します。
-- 下書きは管理画面内のプレビューだけに反映され、公開ページはdataファイルを使います。再配布やデプロイ時は、`dataファイルを保存` で `data/*.js` を更新してから `bash scripts/build-dist.sh` を実行すると `dist/` に入ります。
-- `scripts/build-dist.sh` は公開用HTMLを自動コピーしますが、`*-admin.html` は公開しないため除外します。
-- Portfolioの写真は `images/` に置き、`data/portfolio-projects.js` の `image.src` から参照します。ビルド時に `dist/images/` へコピーされます。
+GitHub Actionsで検証し、mainへのマージ後にCloudflare Workers Buildsで再検証してWorkers Static Assetsへ配布する構成です。Cloudflare連携はアカウント側の設定が必要です。
 
-## Contact
-
-質問や提案がある場合はお気軽にご連絡ください。
+公式ブランド素材の出典はimages/BRAND_ASSETS.txtに記録しています。

@@ -1,113 +1,65 @@
-# SYSTEM_DESIGN.md
+# システム設計
 
-## 目的
+2026-10-19更新。公開サイトとローカル編集を分けた、HTML / CSS / Vanilla JavaScriptの静的サイト。
 
-このドキュメントは、ポートフォリオサイトの現在の構成を後から理解しやすくするための設計メモです。
-実装を大きく変える前に、現状のページ構成、処理の流れ、制限を確認できる状態にします。
+## 公開ページ
 
-## 現在の構成
+| ファイル | 内容 |
+| --- | --- |
+| index.html | 表紙、自己紹介、作品、年表、Favorites |
+| about.html | 所属と活動、制作・発表の年表 |
+| portfolio.html | 作品一覧と検索 |
+| 404.html | 存在しないページの案内 |
+| portfolio-theme.css | 公開ページとローカル編集画面の共通テーマ |
+| public.js | 公開データからの一覧・Contact描画、検索、ナビゲーション |
+| project-cards.js | 公開ページと管理画面で共有するカードの表示処理 |
+| data/portfolio-projects.js | 本人確認を経た公開作品情報 |
+| data/contact-links.js | 公開してよいプロフィールURL |
+| images/BRAND_ASSETS.txt | 公式素材の取得元とファイルの確認情報 |
 
-- `index.html`: サイト全体の入口。About / Portfolio / Learning への導線をまとめる。
-- `about.html`: 自己紹介、関心分野、学習姿勢、価値観を伝える。
-- `portfolio.html`: 制作物の一覧と検索を閲覧者向けに示す。
-- `portfolio-admin.html`: ローカル編集用のPortfolio管理画面。Netlify等の公開対象には含めない。
-- `data/portfolio-projects.js`: Portfolioページに表示する小規模な静的成果物データ。
-- `learning.html`: 公開用のLearningページ。`data/learning-tasks.js` の学習タスクを表示する。
-- `learning-admin.html`: ローカル編集用の管理者画面。Netlify等の公開対象には含めない。
-- `data/learning-tasks.js`: Learningページに表示する小規模な静的タスクデータ。
-- `netlify.toml`: `scripts/build-dist.sh` を呼び出して公開用ファイルだけを `dist/` にコピーしてデプロイする設定。
-- `scripts/build-dist.sh`: `*-admin.html` を除く公開HTML、CSS、JS、`data/*.js`、`images/*` を `dist/` に反映するビルドスクリプト。
-- `styles.css`: 全ページ共通のレイアウト、色、アニメーションを管理する。
-- `script.js`: ナビゲーションの現在地表示、Portfolioページの検索、Learningページのタスク管理を担当する。
+公開ページはlocalStorageを読まない。HomeとWorksは同じ作品情報とカード描画関数を使う。Homeでは受賞実績を持つ作品を紹介し、空の改善計画は表示しない。自己紹介と年表は現段階ではHTMLの手動更新。
 
-現在はフレームワークを使わない静的サイトです。
-HTML / CSS / Vanilla JavaScript で構成され、ブラウザで `index.html` を開けば表示できます。
+## ローカル編集
 
-## 処理フロー
+- developer-admin.htmlが開発者ツールの入口。
+- portfolio-admin.htmlが作品フォーム。project-cards.jsとローカル用script.jsを使う。
+- learning-admin.htmlとdata/learning-tasks.jsは手元の開発記録用。
+- learning.htmlは互換用として残すが、公開ナビ・公開ビルドには含めない。
+- styles.cssは旧管理フォーム等のスタイル。公開ページは読み込まない。
+- 下書きはフォームがある画面だけで読み書きし、書き出しとレビューを経て公開データへ反映する。
+- 保存キーstudyfolio-learning-admin-tasks-v1、studyfolio-portfolio-admin-projects-v1は既存下書きとの互換性のため維持する。
+- localStorageはブラウザとオリジンごとの一時保存。file://からlocalhostへは自動移行しない。下書きだけをバックアップとして扱わない。
 
-### 共通処理
+## 配布と更新
 
-1. 各HTMLの `body` に `data-page` を設定する。
-2. `script.js` が `data-nav` を持つリンクを確認する。
-3. 現在のページに対応するナビゲーションへ `is-current` を付ける。
+```mermaid
+flowchart LR
+  A[ローカル作品フォーム] --> B[下書きとプレビュー]
+  B --> C[書き出しと内容確認]
+  C --> D[公開データ]
+  D --> E[PRとCI]
+  E --> F[main]
+  F --> G[Cloudflareで再検証とビルド]
+  G --> H[distの静的ファイルを公開]
+```
 
-### Homeページ
+- config/public-files.jsonが公開ファイルの明示リスト。フォルダーやHTMLを一括コピーしない。
+- scripts/site-lib.mjsがソース・リンク・画像・データ・配布範囲と内容一致を検証する。
+- scripts/release.mjsが検証、distの再生成、成果物検証を順に行う。再生成前に出力先がリポジトリ内のdistであることを確認する。
+- scripts/build-dist.shは既存のNetlify設定との互換入口であり、release.mjsを呼ぶ。旧来のdata/*.jsやimages/*コピーは行わない。
+- scripts/preview.mjsはdistだけを127.0.0.1:4173で提供する。--developerの場合は許可したローカル編集画面を127.0.0.1:4174で提供する。docsやworkをディレクトリごと提供しない。
+- .github/workflows/site-check.ymlでPR・push時にソース検証とブラウザ確認を実行する。権限はcontents: read。
+- wrangler.jsonでWorkers Static Assetsの配布先を./dist、未存在パスを404-pageに指定する。任意のパスへindex.htmlを返すSPA設定は使わない。
+- _headersに再検証可能なキャッシュと基本ヘッダーを設定する。公開後にCloudflareの応答でも確認する。
 
-1. `index.html` に About / Portfolio / Learning への導線を配置する。
-2. 各導線は直接ページへ遷移し、トップページでは全体像の把握を優先する。
+公開サイトには管理HTML、管理処理のscript.js、学習データ、試作HTML、資料原本や確認記録を含めない。公開GitHubリポジトリにコミットしたコード自体を秘匿する仕組みではない。秘密情報を使う構成ではなく、管理フォームはオンラインの認証済み管理システムとしては扱わない。
 
-### Portfolioページ
+## 外部読み込み
 
-1. `portfolio.html` は公開用ページとして、管理者入力UIを持たない。
-2. `data/portfolio-projects.js` が `window.portfolioProjects` に小規模な成果物配列を渡す。
-3. 同じブラウザに管理画面の `localStorage` がある場合、`script.js` はそちらを優先して成果物カードを描画する。
-4. 成果物に `image.src` と `image.alt` がある場合は、カード上部に写真またはスクリーンショットを表示する。
-5. 画像がない成果物は、`previewType` に応じた簡易プレビューを表示する。`site`、`mobile`、`ui`、`notes` を使い分ける。
-6. `script.js` が入力された検索語を見て、カードの表示・非表示を切り替える。
-7. 該当するカードがない場合は空状態メッセージを表示する。
+公開ページの文字はシステムフォントとGeorgia。Spotifyは本人提供の公式iframeを使用し、内部プレイヤーを加工しない。旧ローカル管理画面にはGoogle Fonts参照が残る。公開サイトのバックエンドAPIやデータベースは設けていない。
 
-### Portfolio管理ページ
+## 検証と現段階の範囲
 
-1. `portfolio-admin.html` はローカル編集用として、公開ナビゲーションからリンクしない。
-2. 管理者入力では、作品名、目的、使用技術、次の改善点、検索キーワード、受賞・認定ラベル、関連リンク、写真または画像パス、プレビュー形式を入力する。
-3. 入力中の成果物はブラウザの `localStorage` に保存する。
-4. 管理者リストでは成果物ごとの編集・削除、または全削除ができる。
-5. エクスポート欄に `data/portfolio-projects.js` へ反映するための `window.portfolioProjects = ...` 形式の内容を表示し、`dataファイルを保存` から保存できる。
-6. Netlify等では `netlify.toml` のビルド設定により、`portfolio-admin.html` は公開用 `dist/` にコピーしない。
-7. 同じブラウザでローカル確認するときは `localStorage` の内容が優先されるが、再配布やデプロイには `data/portfolio-projects.js` を更新したあと、`scripts/build-dist.sh` で写真やリンクを含む公開データを `dist/` にコピーする。
+Node.js 24と既存Edgeで、公開24ファイル、15画面幅、文字拡大9通り、非公開パス11個の404、検索・キーボード・下書き分離・管理フォーム編集を確認。許可外のファイルがdistへ混入すると失敗することも確認した。scripts/check-browser.mjsはGitHubのUbuntuランナー上では既存Chromeを使用する設定。
 
-### Learningページ
-
-1. `learning.html` は公開用ページとして、管理者入力UIを持たない。
-2. `data/learning-tasks.js` が `window.learningTasks` に小規模なタスク配列を渡す。
-3. 同じブラウザに管理画面の `localStorage` がある場合、`script.js` はそちらを優先してタスク数、ステータス別進捗、最新4件のタスク一覧を描画する。
-4. 公開ページでは削除ボタンや入力フォームを出さない。
-
-### Learning管理ページ
-
-1. `learning-admin.html` はローカル編集用として、公開ナビゲーションからリンクしない。
-2. 管理者入力では、タイトル・状態・メモを入力してタスクを追加する。
-3. 入力中のタスクはブラウザの `localStorage` に保存する。
-4. 管理者リストではタスクごとの削除、または全削除ができる。
-5. エクスポート欄に `data/learning-tasks.js` へ反映するための `window.learningTasks = ...` 形式の内容を表示し、`dataファイルを保存` から保存できる。
-6. Netlify等では `netlify.toml` のビルド設定により、`learning-admin.html` は公開用 `dist/` にコピーしない。
-7. 同じブラウザでローカル確認するときは `localStorage` の内容が優先されるが、再配布やデプロイには `data/learning-tasks.js` を更新したあと、`scripts/build-dist.sh` で公開データを `dist/` にコピーする。
-
-## API設計
-
-現在、外部APIやバックエンドAPIは使っていません。
-
-- 公開データ: `data/learning-tasks.js`
-- Portfolio公開データ: `data/portfolio-projects.js`
-- 管理者入力の一時保存: ブラウザの `localStorage`
-- 管理者入力の保存キー: `studyfolio-learning-admin-tasks-v1`
-- Portfolio管理者入力の保存キー: `studyfolio-portfolio-admin-projects-v1`
-- 外部読み込み: Google Fonts
-- 共通アイコン: `favicon.png`
-
-`.env` や秘密情報を使う前提の処理はありません。
-
-## 現在の制限
-
-- Learningの公開データ更新は、`data/learning-tasks.js` を編集して再デプロイする運用。
-- 管理者入力画面は認証機能ではなく、デプロイ対象から外すことで公開しない設計。
-- 静的ホスティングでは、公開対象に含めたHTMLはURL直打ちで見られるため、管理者画面を公開成果物に含めないことが重要。
-- Portfolioページの制作物情報はまだ抽象度が高く、詳細な実績説明はこれから整理する。
-- テストコードはまだない。
-- 現状は静的サイトなので、Flaskなどのバックエンド前提の構成とは分けて考える必要がある。
-
-## 今後の改善方針
-
-- Portfolioページに、制作物ごとの目的、役割、工夫、改善点を追加する。
-- READMEを公開向けの入口として整理する。
-- `docs/LEARNING_NOTES.md` に、実装から学んだことと再実装ポイントを記録する。
-- 必要になった場合だけバックエンドやテスト環境を追加する。
-- `.env` が必要な機能を追加する場合も、公開リポジトリには `.env.example` のみ置く。
-
-## 2026-10-12 dramatic-design移行
-
-- 名称は nikkiy's portfolio、表紙フレーズは Love in My Heart。参考HTMLを構造の出発点とし、作品画像・人物の関心・判断軸・制作年表を実サイトへ反映。
-- portfolio-theme.cssは表紙と公開ページの共通スタイル。styles.cssは管理フォームなど既存機能のスタイルとして継続利用。
-- developer-admin.htmlをローカル開発者用の入口に追加。learning.htmlは互換用にソースを残すが、公開ナビと公開ビルドから除外。
-- 公開ページはdataファイルだけを使用。localStorageの下書きは対応する管理画面内だけで使用。既存保存キーは下書き互換のため維持。
-- Aboutの未確認の年月・所属は公開表示から外した。確認済みの制作年とイベント名を表示。Aboutは手動更新、Learningからの自動反映は未実装。
+GitHub CIはPRごとに結果を確認する。本番のGit連携、保護ルール、実デプロイ、Spotify実再生はアカウント接続後に確認する。手順はPUBLISHING.md。オンラインCMS、学習記録からAboutへの自動反映、未承認の個人担当・成果の追記は未実装。
