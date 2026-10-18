@@ -42,7 +42,7 @@ GitHubのSettings → Rules → Rulesets、またはBranchesでmainにPRとsite-
 
 | 設定 | 値 |
 | --- | --- |
-| Worker名 | nikkiy-portfolio |
+| プロジェクト名（Worker名） | portfolio |
 | 本番ブランチ | main |
 | ルートディレクトリ | リポジトリ直下（空欄または /） |
 | Build command | node scripts/release.mjs |
@@ -51,6 +51,8 @@ GitHubのSettings → Rules → Rulesets、またはBranchesでmainにPRとsite-
 | 公開するディレクトリ | wrangler.jsonのassets.directory = ./dist |
 
 Wranglerは公式npm配布情報を照会して4.151.1へ固定した。上記Deploy commandはCloudflare内でWranglerを取得・実行する。ローカルへのWranglerインストールは不要。Worker名を変える場合はwrangler.jsonのnameとCloudflare上の名前を両方一致させる。Workersの作成画面ではPages向けの出力ディレクトリ欄を探す必要はなく、公開先は設定ファイルで指定する。
+
+ログの保存はCloudflare画面で指定したobservability.enabled = falseをwrangler.jsonにも明示する。これはWorkers Logsの保存設定であり、公開サイトのログイン制限を解除する設定ではない。画面で設定を変えた場合は、提示された差分を設定ファイルにも反映してからPRとCIを通す。公開URLの有効化はworkers_dev、閲覧の認証はCloudflare Accessで別々に管理する。
 
 5. Save and Deployを実行する。
 6. WorkerのSettings → Build / Builds → Branch controlで、本番がmainになっていることを確認する。初期運用ではEnable Preview Buildsを無効にする。必要になってからPRプレビューの公開範囲を決めて有効化する。
@@ -62,6 +64,7 @@ CloudflareのGit連携はGitHub Actionsの完了を自動で待つ仕組みで�
 
 ## 4. 初回公開の確認
 
+- シークレットウィンドウで公開URLを開き、Cloudflareへのログインなしで表示される。Accessを使う場合は本番ではなくプレビューだけを保護する。
 - Home、About、Works、Favorites、Contactのリンクが表示される。
 - スマホで横にはみ出さず、ChoTechロゴが読み取れる。
 - Spotifyが読み込まれ、実端末で再生できる。ローカルCIでは実際の再生を検証していない。
