@@ -50,6 +50,7 @@ flowchart LR
 - scripts/preview.mjsはdistだけを127.0.0.1:4173で提供する。--developerの場合は許可したローカル編集画面を127.0.0.1:4174で提供する。docsやworkをディレクトリごと提供しない。
 - .github/workflows/site-check.ymlでPR・push時にソース検証とブラウザ確認を実行する。権限はcontents: read。
 - wrangler.jsonでWorkers Static Assetsの配布先を./dist、未存在パスを404-pageに指定する。任意のパスへindex.htmlを返すSPA設定は使わない。
+- Cloudflareのプロジェクト名とwrangler.jsonのnameはportfolioで一致させる。observability.enabledはfalseを明示してWorkers Logsの保存設定を同期する。公開URLの有効化とCloudflare Accessによる閲覧認証は別の設定として扱う。
 - _headersに再検証可能なキャッシュと基本ヘッダーを設定する。公開後にCloudflareの応答でも確認する。
 
 公開サイトには管理HTML、管理処理のscript.js、学習データ、試作HTML、資料原本や確認記録を含めない。公開GitHubリポジトリにコミットしたコード自体を秘匿する仕組みではない。秘密情報を使う構成ではなく、管理フォームはオンラインの認証済み管理システムとしては扱わない。
